@@ -1,0 +1,38 @@
+<h1>Words and Expressions</h1>
+
+<p>Save the words or the expression you need to learn.</p>
+
+<form class="form-inline"  (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="wordExpression">Word / Expression</label>
+        <input type="text" class="form-control" placeholder="Example input" name="wordExpression" id="wordExpression" [(ngModel)]="model.wordExpression" />
+    </div>
+    <div class="form-group">
+        <label for="meanning">Meaning</label>
+        <input type="text" class="form-control" placeholder="Another input" name="meanning" id="meanning" />
+    </div>
+    <div class="form-group">
+        <input type="submit" class="form-control" value="Send">
+    </div>
+</form>
+<br />
+<div>
+    <p *ngIf="!wordExpresions"><em>Loading...</em></p>
+
+    <table class="table" *ngIf="wordExpresions">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Word / Expresion</th>
+                <th>Meaning</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let we of wordExpresions">
+                <td>{{ we.dateFormatted }}</td>
+                <td>{{ we.temperatureC }}</td>
+                <td>{{ we.temperatureF }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
