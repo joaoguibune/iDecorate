@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Http } from '@angular/http';
 import { Topic } from '../models/Topic';
 import { Word } from '../models/Word';
@@ -14,7 +15,7 @@ export class WordExpressionsComponent implements OnInit {
     public model: WordExpressionsModel = new WordExpressionsModel();
     public topics: Array<Topic> = new Array<Topic>();
     public wordExpresions: Array<WordExpresions> = new Array<WordExpresions>();
-    public id_topic_selected: string;
+    formWordExpression: FormGroup;
 
     constructor(http: Http, @Inject('BASE_URL') baseUrl: string) {
         http.get(baseUrl + 'api/Topic').subscribe(result => {
@@ -30,7 +31,7 @@ export class WordExpressionsComponent implements OnInit {
                     let word = new Word();
                     word.id = elementWord.id;
                     word.description = elementWord.description;
-                    word.meaning = elementWord.meaning; 
+                    word.meaning = elementWord.meaning;
                     topic.words.push(word);
                 });
                 this.topics.push(topic);
@@ -51,11 +52,24 @@ export class WordExpressionsComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.formWordExpression = new FormGroup({
+            'topic_id': new FormControl(this.model.topic_id, [
+                Validators.required,
 
+            ]),
+            'description': new FormControl(this.model.description, [
+                Validators.required
+            ]),
+            'meaning': new FormControl(this.model.meaning, [
+                Validators.required
+            ])
+        });
+        this.formWordExpression.setValue({ topic_id: 'selected', description: '', meaning: '' });
     }
 
     onSubmit() {
-        this.model.topic_id = this.id_topic_selected;
-        console.log(this.model);
+        if (this.formWordExpression.valid) {
+            console.log(this.model);
+        }
     }
 }
