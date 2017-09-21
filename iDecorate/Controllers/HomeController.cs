@@ -1,16 +1,21 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using iDecorate.Domain.Client.Contract;
 
 namespace LearnWords.Controllers
 {
     public class HomeController : Controller
     {
+        public readonly IBusinessTopic _business;
+        public HomeController(IBusinessTopic business)
+        {
+            _business = business;
+        }
+
         public IActionResult Index()
         {
+            var bla = _business.GetAll();
+
             return View();
         }
 

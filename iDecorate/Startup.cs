@@ -7,6 +7,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using iDecorate.Data.Context;
+using Microsoft.EntityFrameworkCore;
+using iDecorate.Domain.Server.Contract;
+using iDecorate.Domain.Server.Repository;
+using iDecorate.Domain.Client.Contract;
+using iDecorate.Domain.Client.Business;
+using AutoMapper;
 
 namespace LearnWords
 {
@@ -22,7 +29,30 @@ namespace LearnWords
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add framework services.
+            services.AddApplicationInsightsTelemetry(Configuration);
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("StringConnectionApplication")));
+
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+            services.AddScoped(typeof(IBusinessTopic), typeof(BusinessTopic));
+
+            services.AddScoped(typeof(IBusinessWord), typeof(BusinessWord));
+
             services.AddMvc();
+
+            services.AddAutoMapper();
+
+            // Adds a default in-memory implementation of IDistributedCache.
+            services.AddDistributedMemoryCache();
+            //services.AddSession(options =>
+            //{
+            //    // Set a short timeout for easy testing.
+            //    options.IdleTimeout = TimeSpan.FromSeconds(10);
+            //    options.CookieHttpOnly = true;
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
