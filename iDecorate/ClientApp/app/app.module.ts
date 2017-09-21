@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -19,6 +20,7 @@ import { PraticeComponent } from './components/pratice/pratice.component';
         PraticeComponent
     ],
     imports: [
+        BsDropdownModule.forRoot(),
         CommonModule,
         HttpModule,
         FormsModule,

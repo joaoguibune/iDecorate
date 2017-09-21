@@ -1,38 +1,55 @@
-<h1>Words and Expressions</h1>
+<div class="container">
 
-<p>Save the words or the expression you need to learn.</p>
+    <h1>Words and Expressions</h1>
 
-<form class="form-inline"  (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <label for="wordExpression">Word / Expression</label>
-        <input type="text" class="form-control" placeholder="Example input" name="wordExpression" id="wordExpression"  />
-    </div>
-    <div class="form-group">
-        <label for="meanning">Meaning</label>
-        <input type="text" class="form-control" placeholder="Another input" name="meanning" id="meanning" />
-    </div>
-    <div class="form-group">
-        <input type="submit" class="form-control" value="Send">
-    </div>
-</form>
-<br />
-<div>
-    <p *ngIf="wordExpresions.length == 0"><em>Loading...</em></p>
+    <p>Save the words or the expression you need to learn.</p>
 
-    <table class="table" *ngIf="wordExpresions.length > 0">
-        <thead>
-            <tr>
-                <th>Topic</th>
-                <th>Word</th>
-                <th>Meaning</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let we of wordExpresions">
-                <td>{{ we.topic }}</td>
-                <td>{{ we.word }}</td>
-                <td>{{ we.meaning }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <form>
+        <div class="form-group row">
+            <label for="topic" class="col-sm-2 col-form-label">Topic</label>
+            <div class="col-sm-5">
+                <select [(ngModel)]="id_topic_selected" name="topic" id="topic" class="form-control">
+                    <option *ngFor="let topic of topics" [ngValue]="topic.id">{{topic.description}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="wordExpression" class="col-sm-2 col-form-label">Word / Expression</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" name="wordExpression" id="wordExpression" [(ngModel)]="model.description">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="meanning" class="col-sm-2 col-form-label">Meaning</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" placeholder="Password" name="meanning" id="meanning" [(ngModel)]="model.meanning">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-sm-2 col-sm-5">
+                <button type="submit" class="btn btn-default">Add</button>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2" *ngIf="wordExpresions.length == 0"><em>Loading...</em></label>
+            <div class="col-sm-12">
+                <table class="table table-sm" *ngIf="wordExpresions.length > 0">
+                    <thead>
+                        <tr>
+                            <th>Topic</th>
+                            <th>Word</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let we of wordExpresions">
+                            <td>{{ we.topic }}</td>
+                            <td>{{ we.word }}</td>
+                            <td>{{ we.meaning }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
 </div>
