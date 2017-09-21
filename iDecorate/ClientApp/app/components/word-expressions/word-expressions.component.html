@@ -5,7 +5,7 @@
 <form class="form-inline"  (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label for="wordExpression">Word / Expression</label>
-        <input type="text" class="form-control" placeholder="Example input" name="wordExpression" id="wordExpression" [(ngModel)]="model.wordExpression" />
+        <input type="text" class="form-control" placeholder="Example input" name="wordExpression" id="wordExpression"  />
     </div>
     <div class="form-group">
         <label for="meanning">Meaning</label>
@@ -17,21 +17,21 @@
 </form>
 <br />
 <div>
-    <p *ngIf="!wordExpresions"><em>Loading...</em></p>
+    <p *ngIf="wordExpresions.length == 0"><em>Loading...</em></p>
 
-    <table class="table" *ngIf="wordExpresions">
+    <table class="table" *ngIf="wordExpresions.length > 0">
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Word / Expresion</th>
+                <th>Topic</th>
+                <th>Word</th>
                 <th>Meaning</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let we of wordExpresions">
-                <td>{{ we.dateFormatted }}</td>
-                <td>{{ we.temperatureC }}</td>
-                <td>{{ we.temperatureF }}</td>
+                <td>{{ we.topic }}</td>
+                <td>{{ we.word }}</td>
+                <td>{{ we.meaning }}</td>
             </tr>
         </tbody>
     </table>

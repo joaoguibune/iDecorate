@@ -1,5 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Http } from '@angular/http';
+import { Topic } from '../models/Topic';
+import { Word } from '../models/Word';
+import { WordExpresions } from '../models/WordExpresions';
 
 @Component({
     selector: 'word-expressions',
@@ -7,32 +10,49 @@ import { Http } from '@angular/http';
     styleUrls: ['./word-expressions.component.css']
 })
 export class WordExpressionsComponent implements OnInit {
-    public wordExpresions: WordExpresions[];
-    public model: Model;
+    public topics: Array<Topic> = new Array<Topic>();
+    public wordExpresions: Array<WordExpresions> = new Array<WordExpresions>();
 
     constructor(http: Http, @Inject('BASE_URL') baseUrl: string) {
-        http.get(baseUrl + 'api/SampleData/WeatherForecasts').subscribe(result => {
-            this.wordExpresions = result.json() as WordExpresions[];
-        }, error => console.error(error));
+        http.get(baseUrl + 'api/Topic').subscribe(result => {
+
+            let resultObject = result.json() as Array<Topic>;
+
+            resultObject.map(elementTopic => {
+                let topic = new Topic();
+                topic.words = new Array<Word>();
+                topic.id = elementTopic.id;
+                topic.description = elementTopic.description;
+                elementTopic.words.map(elementWord => {
+                    let word = new Word();
+                    word.id = elementWord.id;
+                    word.description = elementWord.description;
+                    word.meaning = elementWord.meaning; 
+                    topic.words.push(word);
+                });
+                this.topics.push(topic);
+            });
+
+            this.topics.forEach(topic => {
+                topic.words.forEach(word => {
+                    let wordExpresion = new WordExpresions();
+                    wordExpresion.topic = topic.description;
+                    wordExpresion.word = word.description;
+                    wordExpresion.meaning = word.meaning;
+                    this.wordExpresions.push(wordExpresion);
+                });
+            });
+        }, error => {
+            console.error(error);
+        });
     }
 
     ngOnInit() {
-        
+
     }
 
     onSubmit() {
-        console.log("Form Submitted!");
+        console.log(this.topics);
+        console.log(this.wordExpresions);
     }
-}
-
-interface WordExpresions {
-    dateFormatted: string;
-    wordExpression: number;
-    meanning: number;
-}
-
-
-class Model {
-    wordExpression: string
-    meanning: string;
 }

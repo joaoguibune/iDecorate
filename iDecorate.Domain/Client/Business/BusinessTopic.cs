@@ -11,12 +11,14 @@ namespace iDecorate.Domain.Client.Business
 {
     public class BusinessTopic : IBusinessTopic
     {
-        private readonly IRepository<TopicEntity> _repository;
+        private readonly IRepository<TopicEntity> _repositoryTopic;
+        private readonly IRepository<WordEntity> _repositoryWord;
         private readonly IMapper _mapper;
 
-        public BusinessTopic(IRepository<TopicEntity> repository, IMapper mapper)
+        public BusinessTopic(IRepository<TopicEntity> repositoryTopic, IRepository<WordEntity> repositoryWord, IMapper mapper)
         {
-            _repository = repository;
+            _repositoryTopic = repositoryTopic;
+            _repositoryWord = repositoryWord;
             _mapper = mapper;
         }
 
@@ -26,7 +28,7 @@ namespace iDecorate.Domain.Client.Business
             {
                 var topic = _mapper.Map<TopicModel, TopicEntity>(topicModel);
 
-                _repository.Insert(topic);
+                _repositoryTopic.Insert(topic);
 
                 return true;
             }
@@ -42,7 +44,7 @@ namespace iDecorate.Domain.Client.Business
             {
                 var topic = _mapper.Map<TopicModel, TopicEntity>(topicModel);
                 
-                _repository.Update(topic);
+                _repositoryTopic.Update(topic);
 
                 return true;
             }
@@ -56,9 +58,9 @@ namespace iDecorate.Domain.Client.Business
         {
             try
             {
-                var reminder = _repository.Find(key);
+                var reminder = _repositoryTopic.Find(key);
 
-                _repository.Delete(reminder);
+                _repositoryTopic.Delete(reminder);
 
                 return true;
             }
@@ -72,7 +74,7 @@ namespace iDecorate.Domain.Client.Business
         {
             try
             {
-                var topic = _repository.Find(key);
+                var topic = _repositoryTopic.Find(key);
 
                 var result = _mapper.Map<TopicEntity, TopicModel>(topic);
                                 
@@ -88,7 +90,12 @@ namespace iDecorate.Domain.Client.Business
         {
             try
             {
-                var topics = _repository.GetAll().OrderBy(r => r.description).ToList();
+                var topics = _repositoryTopic.GetAll().OrderBy(r => r.description).ToList();
+
+                topics.ForEach(t => {
+                    var words = _repositoryWord.GetAll().Where(w => w.topic.id.Equals(t.id)).ToList();
+                    t.words = words;
+                });
 
                 var result = _mapper.Map<List<TopicEntity>, List<TopicModel>>(topics);
 
