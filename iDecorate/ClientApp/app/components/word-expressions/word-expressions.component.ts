@@ -80,16 +80,22 @@ export class WordExpressionsComponent implements OnInit {
 
         this.model = this.prepareRequestWord();
 
+        this.endRequest = false;
+        
         if (this.onEdition) {
             this._http.put(this._baseUrl + "api/Word", this.model).subscribe(result => {
+                this.endRequest = true;
                 this.getTopics();
             }, error => {
+                this.endRequest = true;
                 console.error(error);
             });
         } else {
             this._http.post(this._baseUrl + "api/Word", this.model).subscribe(result => {
+                this.endRequest = true;
                 this.getTopics();
             }, error => {
+                this.endRequest = true;
                 console.error(error);
             });
         }
@@ -133,9 +139,12 @@ export class WordExpressionsComponent implements OnInit {
     }
 
     onDelete(word: WordExpressionsModel){
+        this.endRequest = false;
         this._http.delete(this._baseUrl + "api/Word/" + word.word_id).subscribe(result => {
+            this.endRequest = true;
             this.getTopics();
         }, error => {
+            this.endRequest = true;
             console.error(error);
         });
     }
