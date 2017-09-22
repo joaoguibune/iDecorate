@@ -47,7 +47,11 @@ namespace iDecorate.Domain.Client.Business
             try
             {
                 var word = _mapper.Map<WordModel, WordEntity>(wordModel);
-                
+
+                var topic = _repositoryTopic.Find(wordModel.topic_id);
+
+                word.topic = topic;
+
                 _repository.Update(word);
 
                 return true;

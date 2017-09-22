@@ -37,21 +37,27 @@ namespace iDecorate.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]WordModel value)
+        public void Post([FromBody]WordExpressionsModel value)
         {
-            _businessWord.Insert(value);
+            var word = value.toWordModel();
+
+            _businessWord.Insert(word);
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpPut]
+        public void Put([FromBody]WordExpressionsModel value)
         {
+            var word = value.toWordModel();
+
+            _businessWord.Update(word);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
+            _businessWord.Delete(id);
         }
     }
 }

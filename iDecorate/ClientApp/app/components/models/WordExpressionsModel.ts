@@ -1,5 +1,7 @@
 export class WordExpressionsModel {
+    word_id: string;
     topic_id: string;
-    description: string;
-    meaning: string;
+    topic_description: string;
+    word_description: string;
+    word_meaning: string;
 }
