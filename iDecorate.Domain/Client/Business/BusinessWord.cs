@@ -12,11 +12,13 @@ namespace iDecorate.Domain.Client.Business
     public class BusinessWord : IBusinessWord
     {
         private readonly IRepository<WordEntity> _repository;
+        private readonly IRepository<TopicEntity> _repositoryTopic;
         private readonly IMapper _mapper;
 
-        public BusinessWord(IRepository<WordEntity> repository, IMapper mapper)
+        public BusinessWord(IRepository<WordEntity> repositoryWord, IRepository<TopicEntity> repositoryTopic, IMapper mapper)
         {
-            _repository = repository;
+            _repository = repositoryWord;
+            _repositoryTopic = repositoryTopic;
             _mapper = mapper;
         }
 
@@ -25,6 +27,10 @@ namespace iDecorate.Domain.Client.Business
             try
             {
                 var word = _mapper.Map<WordModel, WordEntity>(wordModel);
+
+                var topic = _repositoryTopic.Find(wordModel.topic_id);
+
+                word.topic = topic;
 
                 _repository.Insert(word);
 
@@ -52,7 +58,7 @@ namespace iDecorate.Domain.Client.Business
             }
         }
 
-        public bool Delete(int key)
+        public bool Delete(Guid key)
         {
             try
             {
@@ -68,7 +74,7 @@ namespace iDecorate.Domain.Client.Business
             }
         }
 
-        public WordModel Find(int key)
+        public WordModel Find(Guid key)
         {
             try
             {

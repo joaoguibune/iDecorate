@@ -4,30 +4,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using iDecorate.Domain.Client.Contract;
-using iDecorate.Domain.Client.Models;
 using Newtonsoft.Json;
+using iDecorate.Domain.Client.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace iDecorate.Controllers
 {
     [Route("api/[controller]")]
-    public class TopicController : Controller
+    public class WordController : Controller
     {
-        private IBusinessTopic _businessTopic;
+        private IBusinessWord _businessWord;
 
-        public TopicController(IBusinessTopic businessTopic)
+        public WordController(IBusinessWord businessWord)
         {
-            _businessTopic = businessTopic;
+            _businessWord = businessWord;
         }
 
         // GET: api/values
         [HttpGet]
-        public IEnumerable<TopicModel> Get()
+        public IEnumerable<string> Get()
         {
-            IEnumerable<TopicModel> topics = _businessTopic.GetAll();
-
-            return topics;
+            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
@@ -39,11 +37,9 @@ namespace iDecorate.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]WordModel value)
         {
-            var topic = JsonConvert.DeserializeObject<TopicModel>(value);
-
-            _businessTopic.Insert(topic);
+            _businessWord.Insert(value);
         }
 
         // PUT api/values/5

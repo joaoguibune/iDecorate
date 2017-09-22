@@ -1,10 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions, RequestOptionsArgs } from '@angular/http';
 import { Topic } from '../models/Topic';
 import { Word } from '../models/Word';
 import { WordExpresions } from '../models/WordExpresions';
 import { WordExpressionsModel } from '../models/WordExpressionsModel';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'word-expressions',
@@ -12,15 +13,27 @@ import { WordExpressionsModel } from '../models/WordExpressionsModel';
     styleUrls: ['./word-expressions.component.css']
 })
 export class WordExpressionsComponent implements OnInit {
+    public endRequest: boolean = false;
     public model: WordExpressionsModel = new WordExpressionsModel();
     public topics: Array<Topic> = new Array<Topic>();
     public wordExpresions: Array<WordExpresions> = new Array<WordExpresions>();
+    private _baseUrl: string = '';
+    private _http: Http;
     formWordExpression: FormGroup;
 
     constructor(http: Http, @Inject('BASE_URL') baseUrl: string) {
-        http.get(baseUrl + 'api/Topic').subscribe(result => {
+        this._baseUrl = baseUrl;
+        this._http = http;
+        this.getTopics();
+    }
+
+    getTopics() {
+        this._http.get(this._baseUrl + 'api/Topic').subscribe(result => {
 
             let resultObject = result.json() as Array<Topic>;
+
+            this.topics = [];
+            this.wordExpresions = [];
 
             resultObject.map(elementTopic => {
                 let topic = new Topic();
@@ -46,6 +59,8 @@ export class WordExpressionsComponent implements OnInit {
                     this.wordExpresions.push(wordExpresion);
                 });
             });
+
+            this.endRequest = true;
         }, error => {
             console.error(error);
         });
@@ -68,8 +83,16 @@ export class WordExpressionsComponent implements OnInit {
     }
 
     onSubmit() {
-        if (this.formWordExpression.valid) {
-            console.log(this.model);
-        }
+        this._http.post(this._baseUrl + "api/Word", this.model).subscribe(result => {
+            this.onReset();
+            this.model = new WordExpressionsModel();
+            this.getTopics();
+        }, error => {
+            console.error(error);
+        });
+    }
+
+    onReset() {
+        this.formWordExpression.reset({});
     }
 }

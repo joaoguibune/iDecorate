@@ -54,7 +54,7 @@ namespace iDecorate.Domain.Client.Business
             }
         }
 
-        public bool Delete(int key)
+        public bool Delete(Guid key)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace iDecorate.Domain.Client.Business
             }
         }
 
-        public TopicModel Find(int key)
+        public TopicModel Find(Guid key)
         {
             try
             {

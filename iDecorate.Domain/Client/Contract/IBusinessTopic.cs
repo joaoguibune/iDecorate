@@ -1,4 +1,5 @@
 ﻿using iDecorate.Domain.Client.Models;
+using System;
 using System.Collections.Generic;
 
 namespace iDecorate.Domain.Client.Contract
@@ -7,8 +8,8 @@ namespace iDecorate.Domain.Client.Contract
     {
         bool Insert(TopicModel reminderViewModel);
         bool Update(TopicModel reminderViewModel);
-        bool Delete(int key);
+        bool Delete(Guid key);
         List<TopicModel> GetAll();
-        TopicModel Find(int key);
+        TopicModel Find(Guid key);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace iDecorate.Domain.Server.Contract
 {
@@ -8,6 +9,6 @@ namespace iDecorate.Domain.Server.Contract
         void Update(T entity);
         void Delete(T entity);
         IEnumerable<T> GetAll();
-        T Find(int key);
+        T Find(Guid key);
     }
 }

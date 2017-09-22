@@ -1,6 +1,7 @@
 ﻿using iDecorate.Data.Context;
 using iDecorate.Domain.Server.Contract;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -38,7 +39,7 @@ namespace iDecorate.Domain.Server.Repository
                 _context.SaveChanges();
             }
         }
-        public T Find(int key) => _context.Set<T>().Find(key);
+        public T Find(Guid key) => _context.Set<T>().Find(key);
 
         public IEnumerable<T> GetAll() => _context.Set<T>().ToList();
     }
