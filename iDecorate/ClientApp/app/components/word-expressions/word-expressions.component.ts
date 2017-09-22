@@ -29,6 +29,7 @@ export class WordExpressionsComponent implements OnInit {
     }
 
     getTopics() {
+        this.endRequest = false;
         this._http.get(this._baseUrl + 'api/Topic').subscribe(result => {
 
             let resultObject = result.json() as Array<Topic>;
