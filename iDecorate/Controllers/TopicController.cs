@@ -39,23 +39,23 @@ namespace iDecorate.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]TopicModel value)
         {
-            var topic = JsonConvert.DeserializeObject<TopicModel>(value);
-
-            _businessTopic.Insert(topic);
+            _businessTopic.Insert(value);
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpPut]
+        public void Put([FromBody]TopicModel value)
         {
+            _businessTopic.Update(value);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
+            _businessTopic.Delete(id);
         }
     }
 }

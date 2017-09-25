@@ -6,15 +6,9 @@ namespace LearnWords.Controllers
 {
     public class HomeController : Controller
     {
-        public readonly IBusinessTopic _business;
-        public HomeController(IBusinessTopic business)
-        {
-            _business = business;
-        }
 
         public IActionResult Index()
         {
-            var bla = _business.GetAll();
 
             return View();
         }
