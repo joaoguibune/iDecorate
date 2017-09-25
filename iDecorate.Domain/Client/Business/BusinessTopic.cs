@@ -101,7 +101,7 @@ namespace iDecorate.Domain.Client.Business
 
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
