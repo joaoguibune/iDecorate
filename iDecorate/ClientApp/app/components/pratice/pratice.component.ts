@@ -17,13 +17,26 @@ export class PraticeComponent implements OnInit {
   public modelWord: WordExpressionsModel = new WordExpressionsModel();
   public modelTopic: Topic = new Topic();
   public topics: Array<Topic> = new Array<Topic>();
-  public words: Array<Word> = new Array<Word>();
   public wordExpresions: Array<WordExpressionsModel> = new Array<WordExpressionsModel>();
+  public praticeWords: Array<WordExpressionsModel> = new Array<WordExpressionsModel>();
+  public toImprove: Array<WordExpressionsModel> = new Array<WordExpressionsModel>();
+  public chosen: WordExpressionsModel = new WordExpressionsModel();
   public onEditionWord: boolean = false;
   public onEditionTopic: boolean = false;
+  public isPratice: boolean = false;
+  public isDone: boolean = false;
+  public isChecking: boolean = false;
+  public correctInTheFirstTime: boolean = true;
+  public correct: boolean = false;
+  public valueText: string = '';
+  public valueDisplay: string = '';
+  public valueDisplayMessage: string;
+  public _correctAnswers: number = 0;
+  public _wrongAnswers: number = 0;
+  public _total: number = 0;
   private _baseUrl: string = '';
   private _http: Http;
-  formWordExpression: FormGroup;
+  formPratice: FormGroup;
   formTopic: FormGroup;
 
   constructor(http: Http, @Inject('BASE_URL') baseUrl: string, private formBuilder: FormBuilder, private renderer: Renderer) {
@@ -55,6 +68,30 @@ export class PraticeComponent implements OnInit {
         this.topics.push(topic);
       });
 
+      this.topics.forEach(topic => {
+        topic.words.forEach(word => {
+          let wordExpresion = new WordExpressionsModel();
+          wordExpresion.topic_id = topic.id;
+          wordExpresion.word_id = word.id;
+          wordExpresion.topic_description = topic.description;
+          wordExpresion.word_description = word.description;
+          wordExpresion.word_meaning = word.meaning;
+          this.wordExpresions.push(wordExpresion);
+        });
+      });
+
+      this.topics.forEach(topic => {
+        topic.words.forEach(word => {
+          let wordExpresion = new WordExpressionsModel();
+          wordExpresion.topic_id = topic.id;
+          wordExpresion.word_id = word.id;
+          wordExpresion.topic_description = topic.description;
+          wordExpresion.word_description = word.meaning;
+          wordExpresion.word_meaning = word.description;
+          this.wordExpresions.push(wordExpresion);
+        });
+      });
+
       this.endRequest = true;
 
       this.onResetTopic();
@@ -68,18 +105,16 @@ export class PraticeComponent implements OnInit {
   }
   onSubmitTopic() {
 
-    let topic = this.topics.find(t => { return t.id == this.formTopic.value.id; });
+    this.praticeWords = this.wordExpresions.filter(t => { return t.topic_id == this.formTopic.value.id; });
 
-    if (topic)
-      topic.words.forEach((element) => {
-        this.words.push(element);
-      });
+    if (this.praticeWords.length > 0) {
+      this.isPratice = true;
 
-    // this.topics.forEach((element) => {
-    //   this.topicsCopy.push([element[1], element[0]]);
-    // });
+      this._total = this.praticeWords.length;
 
-    console.error(this.words);
+      this.chosenWord();
+
+    }
   }
 
   onResetTopic() {
@@ -93,6 +128,10 @@ export class PraticeComponent implements OnInit {
       id: ['selected', Validators.required],
       description: [''],
     });
+
+    this.formPratice = this.formBuilder.group({
+      valueText: ['']
+    });
   }
 
   private prepareRequestTopic(): Topic {
@@ -104,5 +143,61 @@ export class PraticeComponent implements OnInit {
       words: this.modelTopic.words
     };
     return saveTopic;
+  }
+
+  donePratice() {
+    this.isPratice = false;
+    this.praticeWords = [];
+    this.isChecking = false;
+    this.valueDisplayMessage = '';
+    this.isDone = false;
+    this._correctAnswers = 0;
+    this._wrongAnswers = 0;
+  }
+
+  checkPratice() {
+
+    this.correct = this.formPratice.value.valueText.toUpperCase() === this.chosen.word_meaning.toUpperCase();
+
+    if (this.correct) {
+      this.isChecking = true;
+      if (this.correctInTheFirstTime) {
+        this._correctAnswers++;
+      }
+      this.correctInTheFirstTime = true;
+      this.valueDisplayMessage = 'Correct! (' + this.chosen.word_meaning + ')';
+      setTimeout(() => {
+        if (this.praticeWords.length > 0) {
+          this.chosenWord();
+          this.isChecking = false;
+          this.valueDisplayMessage = '';
+          this.isDone = false;
+        }
+        else{
+          this.isDone = true;
+          this.valueDisplayMessage = '';
+        }
+        this.formPratice = this.formBuilder.group({
+          valueText: ['']
+        });
+      }, 2000);
+    } else {
+      if (!this.toImprove.some((item) => { return item.word_description == this.chosen.word_description })) {
+        this.toImprove.push(this.chosen);
+        this._wrongAnswers++;
+      }
+      this.correctInTheFirstTime = false;
+      this.valueDisplayMessage = "Wrong, try again!";
+      this.formPratice = this.formBuilder.group({
+        valueText: ['']
+      });
+    }
+  }
+
+  chosenWord() {
+    var x = Math.floor((Math.random() * this.praticeWords.length) + 1) - 1;
+    this.chosen = this.praticeWords[x];
+    this.valueDisplay = this.chosen.word_description;
+    this.praticeWords.splice(x, 1);
   }
 }

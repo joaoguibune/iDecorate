@@ -1,27 +1,77 @@
 <h3>Pratice</h3>
 <p>Pratice your words.</p>
 <hr>
-<form [formGroup]="formTopic" (ngSubmit)="formTopic.value.id !== 'selected' && formTopic.valid && onSubmitTopic();" novalidate>
-  <div class="form-group row">
-    <label for="id" class="col-sm-2 col-form-label">Topic</label>
-    <div class="col-sm-5">
-      <select name="id" id="id" class="form-control" required formControlName="id">
-                        <option value="selected" selected>Select...</option>
-                        <option *ngFor="let topic of topics"
-                                [value]="topic.id">
-                            {{topic.description}}
-                        </option> 
-                    </select>
-      <div class="list-group-item list-group-item-danger" *ngIf="formTopic.value.id === 'selected' && (formTopic.controls['id'].dirty || formTopic.controls['id'].touched)">
-        <div *ngIf="formTopic.value.id === 'selected'">
-          Topic is required.
+<div *ngIf="!isPratice">
+  <form [formGroup]="formTopic" (ngSubmit)="formTopic.value.id !== 'selected' && formTopic.valid && onSubmitTopic();" novalidate>
+    <div class="form-group row">
+      <label for="id" class="col-sm-2 col-form-label">Topic</label>
+      <div class="col-sm-5">
+        <select name="id" id="id" class="form-control" required formControlName="id">
+          <option value="selected" selected>Select...</option>
+          <option *ngFor="let topic of topics"
+          [value]="topic.id">
+          {{topic.description}}
+        </option> 
+      </select>
+        <div class="list-group-item list-group-item-danger" *ngIf="formTopic.value.id === 'selected' && (formTopic.controls['id'].dirty || formTopic.controls['id'].touched)">
+          <div *ngIf="formTopic.value.id === 'selected'">
+            Topic is required.
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="form-group row">
+    <div class="form-group row">
       <div class="offset-sm-2 col-sm-5">
-          <button type="submit" class="btn btn-default" [disabled]="formTopic.value.id === 'selected'">Submit</button>
+        <button type="submit" class="btn btn-default" [disabled]="formTopic.value.id === 'selected'">Submit</button>
       </div>
-  </div>
-</form>
+    </div>
+  </form>
+</div>
+<div *ngIf="isPratice">
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>Total:</td>
+        <td>{{_total}}</td>
+      </tr>
+      <tr class="alert alert-success">
+        <td>Correct ansers:</td>
+        <td>{{_correctAnswers}}</td>
+      </tr>
+      <tr class="alert alert-danger">
+        <td>Wrong ansers:</td>
+        <td>{{_wrongAnswers}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <form class="form-group" [formGroup]="formPratice" (ngSubmit)="isDone ? donePratice() : checkPratice()">
+    <label *ngIf="!isDone" for="valueText">{{valueDisplay}}</label>
+    <br>
+    <label *ngIf="valueDisplayMessage" [class]="correct ? 'alert alert-success' : 'alert alert-danger'" class="form-group">{{valueDisplayMessage}}</label>
+    <br>
+    <div *ngIf="!isChecking">
+      <input type="text" name="valueText" id="valueText" class="form-control" formControlName="valueText">
+      <br>
+      <button type="submit" class="btn btn-default" *ngIf="!isDone">Check</button>
+    </div>
+    <button type="submit" class="btn btn-default" *ngIf="isDone">Done</button>
+  </form>
+  <br>
+  <table class="table" *ngIf="isDone && toImprove.length > 0">
+    <caption>Word to improve</caption>
+    <thead>
+      <tr>
+        <td>Word</td>
+        <td>Meaning</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of toImprove">
+        <td>{{ item.word_description }}</td>
+        <td>{{ item.word_meaning }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <span *ngIf="isDone && toImprove.length === 0">Congrats, you have nothing to improve!</span>
+</div>
