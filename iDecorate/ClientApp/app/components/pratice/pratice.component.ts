@@ -68,12 +68,12 @@ export class PraticeComponent implements OnInit {
   }
   onSubmitTopic() {
 
-    let topic = this.topics.find(t =>{ return t.id == this.formTopic.value.id; });
+    let topic = this.topics.find(t => { return t.id == this.formTopic.value.id; });
 
-    if(topic)
-    topic.words.forEach((element) => {
-      this.words.push(element);
-    });
+    if (topic)
+      topic.words.forEach((element) => {
+        this.words.push(element);
+      });
 
     // this.topics.forEach((element) => {
     //   this.topicsCopy.push([element[1], element[0]]);
