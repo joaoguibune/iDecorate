@@ -14,21 +14,17 @@ import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms"
 export class PraticeComponent implements OnInit {
 
   public endRequest: boolean = false;
-  public modelWord: WordExpressionsModel = new WordExpressionsModel();
   public modelTopic: Topic = new Topic();
   public topics: Array<Topic> = new Array<Topic>();
   public wordExpresions: Array<WordExpressionsModel> = new Array<WordExpressionsModel>();
   public praticeWords: Array<WordExpressionsModel> = new Array<WordExpressionsModel>();
   public toImprove: Array<WordExpressionsModel> = new Array<WordExpressionsModel>();
   public chosen: WordExpressionsModel = new WordExpressionsModel();
-  public onEditionWord: boolean = false;
-  public onEditionTopic: boolean = false;
   public isPratice: boolean = false;
   public isDone: boolean = false;
   public isChecking: boolean = false;
   public correctInTheFirstTime: boolean = true;
   public correct: boolean = false;
-  public valueText: string = '';
   public valueDisplay: string = '';
   public valueDisplayMessage: string;
   public _correctAnswers: number = 0;
@@ -65,7 +61,7 @@ export class PraticeComponent implements OnInit {
           word.meaning = elementWord.meaning;
           topic.words.push(word);
         });
-        this.topics.push(topic);
+        if(elementTopic.words.length > 0) this.topics.push(topic);
       });
 
       this.topics.forEach(topic => {
@@ -103,23 +99,23 @@ export class PraticeComponent implements OnInit {
   ngOnInit() {
     this.buildFormTopic();
   }
+
   onSubmitTopic() {
 
     this.praticeWords = this.wordExpresions.filter(t => { return t.topic_id == this.formTopic.value.id; });
 
     if (this.praticeWords.length > 0) {
+
       this.isPratice = true;
 
       this._total = this.praticeWords.length;
 
       this.chosenWord();
-
     }
   }
 
   onResetTopic() {
     this.modelTopic = new Topic();
-    this.onEditionTopic = false;
     this.buildFormTopic();
   }
 
@@ -132,17 +128,6 @@ export class PraticeComponent implements OnInit {
     this.formPratice = this.formBuilder.group({
       valueText: ['']
     });
-  }
-
-  private prepareRequestTopic(): Topic {
-    const formModel = this.formTopic.value;
-
-    const saveTopic: Topic = {
-      id: this.modelTopic.id,
-      description: formModel.description,
-      words: this.modelTopic.words
-    };
-    return saveTopic;
   }
 
   donePratice() {
@@ -173,7 +158,7 @@ export class PraticeComponent implements OnInit {
           this.valueDisplayMessage = '';
           this.isDone = false;
         }
-        else{
+        else {
           this.isDone = true;
           this.valueDisplayMessage = '';
         }
