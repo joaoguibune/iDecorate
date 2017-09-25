@@ -12,6 +12,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms"
   styleUrls: ['./pratice.component.css']
 })
 export class PraticeComponent implements OnInit {
+  _renderer: Renderer;
 
   public endRequest: boolean = false;
   public modelTopic: Topic = new Topic();
@@ -38,6 +39,7 @@ export class PraticeComponent implements OnInit {
   constructor(http: Http, @Inject('BASE_URL') baseUrl: string, private formBuilder: FormBuilder, private renderer: Renderer) {
     this._http = http;
     this._baseUrl = baseUrl;
+    this._renderer = renderer;
     this.getTopics();
   }
 
@@ -61,7 +63,7 @@ export class PraticeComponent implements OnInit {
           word.meaning = elementWord.meaning;
           topic.words.push(word);
         });
-        if(elementTopic.words.length > 0) this.topics.push(topic);
+        if (elementTopic.words.length > 0) this.topics.push(topic);
       });
 
       this.topics.forEach(topic => {
@@ -111,6 +113,10 @@ export class PraticeComponent implements OnInit {
       this._total = this.praticeWords.length;
 
       this.chosenWord();
+
+      setTimeout(f => {
+        this._renderer.selectRootElement('#valueText').focus();
+      }, 100);
     }
   }
 
@@ -157,6 +163,9 @@ export class PraticeComponent implements OnInit {
           this.isChecking = false;
           this.valueDisplayMessage = '';
           this.isDone = false;
+          setTimeout(f => {
+            this._renderer.selectRootElement('#valueText').focus();
+          }, 100);
         }
         else {
           this.isDone = true;
@@ -167,6 +176,9 @@ export class PraticeComponent implements OnInit {
         });
       }, 2000);
     } else {
+      setTimeout(f => {
+        this._renderer.selectRootElement('#valueText').focus();
+      }, 100);
       if (!this.toImprove.some((item) => { return item.word_description == this.chosen.word_description })) {
         this.toImprove.push(this.chosen);
         this._wrongAnswers++;
