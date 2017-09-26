@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="#720707"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+    <!--<EditText
+        android:hint="Informe o nome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtNome" />
+    <EditText
+        android:hint="Informe a Idade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtIdade" />
+    <EditText
+        android:hint="Informe o Email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtEmail" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btnIncluir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Incluir"
+            android:layout_weight="1" />
+        <Button
+            android:id="@+id/btnEditar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Editar"
+            android:layout_weight="1" />
+        <Button
+            android:id="@+id/btnDeletar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deletar"
+            android:layout_weight="1" />
+    </LinearLayout>-->
+    <ListView
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:background="#8b7355"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lvDados" />
 </LinearLayout>
