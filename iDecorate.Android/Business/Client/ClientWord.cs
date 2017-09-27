@@ -16,55 +16,53 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace iDecorate.Android.Business.Client
 {
     public class ClientWord : IClient<WordModel>
     {
         private string _urlRequest = "http://idecorate.azurewebsites.net/api/Word";
+        HttpClient client;
+
+        public ClientWord()
+        {
+            client = new HttpClient();
+            client.MaxResponseContentBufferSize = 256000;
+        }
+
+        public async Task<WordModel> Get(string id)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<IEnumerable<WordModel>> GetList()
         {
-            // Create an HTTP web request using the URL:
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(_urlRequest));
-            request.ContentType = "application/json";
-            request.Method = "GET";
-
-            // Send the request to the server and wait for the response:
-            using (WebResponse response = await request.GetResponseAsync())
-            {
-                // Get a stream representation of the HTTP web response:
-                using (Stream stream = response.GetResponseStream())
-                {
-                    // Use this stream to build a JSON document object:
-                    JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
-
-                    var result = JsonConvert.DeserializeObject<IEnumerable<WordModel>>(jsonDoc.ToString());
-
-                    // Return the JSON document:
-                    return result;
-                }
-            }
+            var response = await client.GetStringAsync(_urlRequest);
+            var todoItems = JsonConvert.DeserializeObject<List<WordModel>>(response);
+            return todoItems;
         }
 
-        public void Get(string id)
+        public async Task<bool> Post(WordModel body)
         {
-            throw new NotImplementedException();
+            var data = JsonConvert.SerializeObject(body);
+            var content = new StringContent(data, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync(_urlRequest, content);
+            return response.IsSuccessStatusCode;
         }
 
-        public void Post(WordModel body)
+        public async Task<bool> Put(WordModel body)
         {
-            throw new NotImplementedException();
+            var data = JsonConvert.SerializeObject(body);
+            var content = new StringContent(data, Encoding.UTF8, "application/json");
+            var response = await client.PutAsync(_urlRequest, content);
+            return response.IsSuccessStatusCode;
         }
-
-        public void Put(WordModel body)
+        public async Task<bool> Delete(string id)
         {
-            throw new NotImplementedException();
-        }
+            var response = await client.DeleteAsync(string.Concat(_urlRequest, id));
 
-        public Task<WordModel> Get()
-        {
-            throw new NotImplementedException();
+            return response.IsSuccessStatusCode;
         }
     }
 }

@@ -11,14 +11,15 @@ using Android.Views;
 using Android.Widget;
 using System.Threading.Tasks;
 
+
 namespace iDecorate.Android.Business.Contract
 {
     public interface IClient<T>
     {
-        Task<T> Get();
+        Task<T> Get(string id);
         Task<IEnumerable<T>> GetList();
-        void Post(T body);
-        void Put(T body);
-        void Get(string id);
+        Task<bool> Post(T body);
+        Task<bool> Put(T body);
+        Task<bool> Delete(string id);
     }
 }

@@ -70,7 +70,7 @@ namespace iDecorate.Android
 			public const int ListViewWordData = 2131034128;
 			
 			// aapt resource value: 0x7f05000a
-			public const int buttonAdd = 2131034122;
+			public const int buttonAddTopic = 2131034122;
 			
 			// aapt resource value: 0x7f05000f
 			public const int buttonAddWord = 2131034127;
