@@ -7,6 +7,6 @@ namespace iDecorate.Android.Model
     {
         public Guid id { get; set; }
         public string description { get; set; }
-        public List<Word> words { get; set; }
+        public List<WordModel> words { get; set; }
     }
 }

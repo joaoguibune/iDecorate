@@ -2,7 +2,7 @@
 
 namespace iDecorate.Android.Model
 {
-    public class Word
+    public class WordModel
     {
         public Guid id { get; set; }
         public Guid topic_id { get; set; }

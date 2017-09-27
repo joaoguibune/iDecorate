@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:padding="8dp">
   <TextView
-      android:id="@+id/txtvNome"
-      android:text="Nome"
+      android:id="@+id/textViewWord"
+      android:text="Word"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textColor="#000000"
@@ -14,15 +14,15 @@
       android:textStyle="bold"
       android:paddingLeft="5dp" />
   <TextView
-      android:id="@+id/txtvIdade"
-      android:text="Idade"
+      android:id="@+id/textViewMeaning"
+      android:text="Meaning"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textColor="#ffff00"
       android:paddingLeft="5dp" />
   <TextView
-      android:id="@+id/txtvEmail"
-      android:text="Email"
+      android:id="@+id/textViewTopic"
+      android:text="Topic"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textColor="#ffffff"
