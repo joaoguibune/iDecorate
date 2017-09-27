@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Activities\NewTopicActivity.cs" />
     <Compile Include="Activities\NewWordActivity.cs" />
+    <Compile Include="Adapters\Main\CustomSpinnerAdapter.cs" />
     <Compile Include="Adapters\Main\ListViewWordAdapter.cs" />
     <Compile Include="Adapters\Main\ListViewTopicAdapter.cs" />
     <Compile Include="Adapters\Main\ListViewAdapter.cs" />

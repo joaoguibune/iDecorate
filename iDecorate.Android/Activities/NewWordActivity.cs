@@ -14,16 +14,19 @@ using iDecorate.Android.Business.Contract;
 using iDecorate.Android.Model;
 using Newtonsoft.Json;
 using iDecorate.Android.Adapters.Main;
+using System.Collections;
 
 namespace iDecorate.Android.Activities
 {
     [Activity(Label = "Word")]
     public class NewWordActivity : Activity
     {
+        private Spinner spinner;
 
-        List<TopicWordModel> words;
-
-        ListView ListViewWordData;
+        private List<TopicWordModel> words;
+        private ListView ListViewWordData;
+        private List<TopicModel> topics;
+        private TopicModel topicSelected;
 
         private IClient<WordModel> _clientWord = new ClientWord();
 
@@ -38,11 +41,22 @@ namespace iDecorate.Android.Activities
             var buttonAddWord = FindViewById<Button>(Resource.Id.buttonAddWord);
 
             words = Intent.GetStringExtra("Word") == null ? new List<TopicWordModel>() : JsonConvert.DeserializeObject<List<TopicWordModel>>(Intent.GetStringExtra("Word"));
-
+            topics = Intent.GetStringExtra("Topic") == null ? new List<TopicModel>() : JsonConvert.DeserializeObject<List<TopicModel>>(Intent.GetStringExtra("Topic"));
+                        
             ListViewWordData = FindViewById<ListView>(Resource.Id.ListViewWordData);
 
             var adapter = new ListViewWordAdapter(this, words);
             ListViewWordData.Adapter = adapter;
+
+            spinner = FindViewById<Spinner>(Resource.Id.spinnerTopics);
+            var spinneradapter = new CustomSpinnerAdapter(this, topics);
+            spinner.Adapter = spinneradapter;
+            spinner.ItemSelected += SpinnerItemSelected;
+        }
+
+        private void SpinnerItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            topicSelected = topics[e.Position];
         }
     }
 }

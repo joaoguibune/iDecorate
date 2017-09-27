@@ -78,6 +78,7 @@ namespace iDecorate.Android
             buttonNewWord.Click += delegate
             {
                 var newWordActivity = new Intent(this, typeof(NewWordActivity));
+                newWordActivity.PutExtra("Topic", JsonConvert.SerializeObject(topics));
                 newWordActivity.PutExtra("Word", JsonConvert.SerializeObject(topicWords));
                 StartActivity(newWordActivity);
             };

@@ -3,6 +3,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+  <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerTopics" />
+
   <EditText
           android:hint="Type the Word"
           android:layout_width="match_parent"
@@ -23,18 +29,6 @@
         android:layout_height="wrap_content"
         android:text="Add"
         android:layout_weight="1" />
-    <!--<Button
-        android:id="@+id/btnEditar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Editar"
-        android:layout_weight="1" />
-    <Button
-        android:id="@+id/btnDeletar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Deletar"
-        android:layout_weight="1" />-->
   </LinearLayout>
   <ListView
     android:minWidth="25px"
