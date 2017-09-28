@@ -52,6 +52,9 @@
       <HintPath>..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\newtonsoft.json\10.0.1\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.4.4.0\lib\netstandard2.0\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
     <Reference Include="System.Json" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
@@ -65,8 +68,7 @@
     <Compile Include="Adapters\Main\ListViewWordAdapter.cs" />
     <Compile Include="Adapters\Main\ListViewTopicAdapter.cs" />
     <Compile Include="Adapters\Main\ListViewAdapter.cs" />
-    <Compile Include="Business\Client\ClientTopic.cs" />
-    <Compile Include="Business\Client\ClientWord.cs" />
+    <Compile Include="Business\Client\Client.cs" />
     <Compile Include="Business\Contract\IClient.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Model\TopicModel.cs" />

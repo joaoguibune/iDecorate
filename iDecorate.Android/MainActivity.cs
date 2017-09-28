@@ -27,7 +27,7 @@ namespace iDecorate.Android
         List<TopicWordModel> topicWords = new List<TopicWordModel>();
         List<TopicModel> topics = new List<TopicModel>();
         ProgressDialog progress;
-        private IClient<TopicModel> _clientTopic = new ClientTopic();
+        private IClient<TopicModel> _clientTopic = new Client<TopicModel>("Topic");
         
         protected override async void OnCreate(Bundle savedInstanceState)
         {

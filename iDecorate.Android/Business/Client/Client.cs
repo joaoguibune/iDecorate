@@ -17,33 +17,37 @@ using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Configuration;
 
 namespace iDecorate.Android.Business.Client
 {
-    public class ClientWord : IClient<WordModel>
+    public class Client<T> : IClient<T>
     {
-        private string _urlRequest = "http://idecorate.azurewebsites.net/api/Word";
+        private string _urlRequest = "http://idecorate.azurewebsites.net/api/";
         HttpClient client;
 
-        public ClientWord()
+        public Client(string call)
         {
+            _urlRequest += call;
             client = new HttpClient();
             client.MaxResponseContentBufferSize = 256000;
         }
 
-        public async Task<WordModel> Get(string id)
+        public async Task<T> Get(string id)
         {
-            throw new NotImplementedException();
+            var response = await client.GetStringAsync(string.Concat(_urlRequest, id));
+            var result = JsonConvert.DeserializeObject<T>(response);
+            return result;
         }
 
-        public async Task<IEnumerable<WordModel>> GetList()
+        public async Task<IEnumerable<T>> GetList()
         {
             var response = await client.GetStringAsync(_urlRequest);
-            var todoItems = JsonConvert.DeserializeObject<List<WordModel>>(response);
-            return todoItems;
+            var result = JsonConvert.DeserializeObject<List<T>>(response);
+            return result;
         }
 
-        public async Task<bool> Post(WordModel body)
+        public async Task<bool> Post(T body)
         {
             var data = JsonConvert.SerializeObject(body);
             var content = new StringContent(data, Encoding.UTF8, "application/json");
@@ -51,7 +55,7 @@ namespace iDecorate.Android.Business.Client
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> Put(WordModel body)
+        public async Task<bool> Put(T body)
         {
             var data = JsonConvert.SerializeObject(body);
             var content = new StringContent(data, Encoding.UTF8, "application/json");
@@ -61,7 +65,6 @@ namespace iDecorate.Android.Business.Client
         public async Task<bool> Delete(string id)
         {
             var response = await client.DeleteAsync(string.Concat(_urlRequest, id));
-
             return response.IsSuccessStatusCode;
         }
     }

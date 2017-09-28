@@ -28,7 +28,7 @@ namespace iDecorate.Android.Activities
         private List<TopicModel> topics;
         private TopicModel topicSelected;
 
-        private IClient<WordModel> _clientWord = new ClientWord();
+        private IClient<WordModel> _clientWord = new Client<WordModel>("Word");
 
         protected override void OnCreate(Bundle savedInstanceState)
         {

@@ -21,7 +21,7 @@ namespace iDecorate.Android.Activities
     [Activity(Label = "Topic")]
     public class NewTopicActivity : Activity
     {
-        private IClient<TopicModel> _clientTopic = new ClientTopic();
+        private IClient<TopicModel> _clientTopic = new Client<TopicModel>("Topic");
         List<TopicModel> topics;
 
         ListView ListViewTopicData;
@@ -49,7 +49,7 @@ namespace iDecorate.Android.Activities
                 else
                 {
                     if (await _clientTopic.Post(new TopicModel { description = editTextTopic.Text }))
-                        OnBackPressed();
+                        StartActivity(new Intent(this, typeof(NewTopicActivity)));
                 }
             };
 
