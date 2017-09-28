@@ -36,10 +36,14 @@ namespace iDecorate.Android.Adapters.Main
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             var view = convertView ?? context.LayoutInflater.Inflate(Resource.Layout.ListViewWordLayout, parent, false);
-            var textViewWordDescription = view.FindViewById<TextView>(Resource.Id.textViewWordDescription);
-            var textViewWordMeaning = view.FindViewById<TextView>(Resource.Id.textViewWordMeaning);
-            textViewWordDescription.Text = words[position].word_description;
-            textViewWordMeaning.Text = words[position].word_meaning;
+            var lvwlTopicDescription = view.FindViewById<TextView>(Resource.Id.lvwlTopicDescription);
+            var lvwlWordDescription = view.FindViewById<TextView>(Resource.Id.lvwlWordDescription);
+            var lvwlWordMeaning = view.FindViewById<TextView>(Resource.Id.lvwlWordMeaning);
+
+            lvwlTopicDescription.Text = words[position].topic_description;
+            lvwlWordDescription.Text = words[position].word_description;
+            lvwlWordMeaning.Text = words[position].word_meaning;
+
             return view;
         }
         public override Java.Lang.Object GetItem(int position)

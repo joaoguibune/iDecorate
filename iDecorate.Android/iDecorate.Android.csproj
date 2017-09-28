@@ -76,6 +76,7 @@
     <Compile Include="Model\WordModel.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\ProgressaCustom.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -15,6 +15,7 @@ using iDecorate.Android.Business.Client;
 using Newtonsoft.Json;
 using iDecorate.Android.Adapters.Main;
 using Android.Text;
+using iDecorate.Android.Util;
 
 namespace iDecorate.Android.Activities
 {
@@ -22,25 +23,40 @@ namespace iDecorate.Android.Activities
     public class NewTopicActivity : Activity
     {
         private IClient<TopicModel> _clientTopic = new Client<TopicModel>("Topic");
-        List<TopicModel> topics;
+        private List<TopicModel> topics;
 
-        ListView ListViewTopicData;
+        private ListView ListViewTopicData;
+        private ListViewTopicAdapter adapterListViewTopic;
+        private EditText editTextTopic;
+        private Button buttonAdd;
+        private ProgressCustom progress;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             base.SetContentView(Resource.Layout.NewTopic);
+            
+            progress = new ProgressCustom(this);
 
-            var editTextTopic = FindViewById<EditText>(Resource.Id.editTextTopic);
-            var buttonAdd = FindViewById<Button>(Resource.Id.buttonAddTopic);
+            progress.Show();
 
             topics = Intent.GetStringExtra("Topic") == null ? new List<TopicModel>() : JsonConvert.DeserializeObject<List<TopicModel>>(Intent.GetStringExtra("Topic"));
 
-            ListViewTopicData = FindViewById<ListView>(Resource.Id.ListViewTopicData);
+            RegiterEvents();
+            
+            progress.Dismiss();
 
-            var adapter = new ListViewTopicAdapter(this, topics);
-            ListViewTopicData.Adapter = adapter;
+        }
+
+        private void RegiterEvents()
+        {
+            editTextTopic = FindViewById<EditText>(Resource.Id.editTextTopic);
+            buttonAdd = FindViewById<Button>(Resource.Id.buttonAddTopic);
+            ListViewTopicData = FindViewById<ListView>(Resource.Id.ListViewTopicData);
+            adapterListViewTopic = new ListViewTopicAdapter(this, topics);
+
+            ListViewTopicData.Adapter = adapterListViewTopic;
 
             buttonAdd.Click += async delegate
             {
@@ -52,7 +68,6 @@ namespace iDecorate.Android.Activities
                         StartActivity(new Intent(this, typeof(NewTopicActivity)));
                 }
             };
-
         }
     }
 }

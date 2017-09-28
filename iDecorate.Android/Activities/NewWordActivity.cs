@@ -15,6 +15,7 @@ using iDecorate.Android.Model;
 using Newtonsoft.Json;
 using iDecorate.Android.Adapters.Main;
 using System.Collections;
+using iDecorate.Android.Util;
 
 namespace iDecorate.Android.Activities
 {
@@ -22,10 +23,16 @@ namespace iDecorate.Android.Activities
     public class NewWordActivity : Activity
     {
         private Spinner spinner;
+        private CustomSpinnerAdapter spinnerAdapter;
+        private ListView listViewWordData;
+        private ListViewWordAdapter adapterListViewWord;
+        private ProgressCustom progress;
+        private EditText editTextWord;
+        private EditText editTextMeaning;
+        private Button buttonAddWord;
 
-        private List<TopicWordModel> words;
-        private ListView ListViewWordData;
-        private List<TopicModel> topics;
+        private List<TopicWordModel> words = new List<TopicWordModel>();
+        private List<TopicModel> topics = new List<TopicModel>();
         private TopicModel topicSelected;
 
         private IClient<WordModel> _clientWord = new Client<WordModel>("Word");
@@ -36,27 +43,48 @@ namespace iDecorate.Android.Activities
 
             base.SetContentView(Resource.Layout.NewWord);
 
-            var editTextWord = FindViewById<EditText>(Resource.Id.editTextWord);
-            var editTextMeaning = FindViewById<EditText>(Resource.Id.editTextMeaning);
-            var buttonAddWord = FindViewById<Button>(Resource.Id.buttonAddWord);
+            progress = new ProgressCustom(this);
 
-            words = Intent.GetStringExtra("Word") == null ? new List<TopicWordModel>() : JsonConvert.DeserializeObject<List<TopicWordModel>>(Intent.GetStringExtra("Word"));
+            progress.Show();
+
             topics = Intent.GetStringExtra("Topic") == null ? new List<TopicModel>() : JsonConvert.DeserializeObject<List<TopicModel>>(Intent.GetStringExtra("Topic"));
-                        
-            ListViewWordData = FindViewById<ListView>(Resource.Id.ListViewWordData);
 
-            var adapter = new ListViewWordAdapter(this, words);
-            ListViewWordData.Adapter = adapter;
+            topics.ForEach(topic =>
+            {
+                topic.words.ForEach(word =>
+                {
+                    words.Add(new TopicWordModel
+                    {
+                        topic_description = topic.description,
+                        word_description = word.description,
+                        word_meaning = word.meaning
+                    });
+                });
+            });
 
-            spinner = FindViewById<Spinner>(Resource.Id.spinnerTopics);
-            var spinneradapter = new CustomSpinnerAdapter(this, topics);
-            spinner.Adapter = spinneradapter;
-            spinner.ItemSelected += SpinnerItemSelected;
+            RegisterEvents();
+
+            progress.Dismiss();
         }
 
-        private void SpinnerItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        private void RegisterEvents()
         {
-            topicSelected = topics[e.Position];
+
+            editTextWord = FindViewById<EditText>(Resource.Id.editTextWord);
+            editTextMeaning = FindViewById<EditText>(Resource.Id.editTextMeaning);
+            buttonAddWord = FindViewById<Button>(Resource.Id.buttonAddWord);
+            listViewWordData = FindViewById<ListView>(Resource.Id.ListViewWordData);
+            spinner = FindViewById<Spinner>(Resource.Id.spinnerTopics);
+
+            adapterListViewWord = new ListViewWordAdapter(this, words);
+            listViewWordData.Adapter = adapterListViewWord;
+
+            spinnerAdapter = new CustomSpinnerAdapter(this, topics);
+            spinner.Adapter = spinnerAdapter;
+            spinner.ItemSelected += (object sender, AdapterView.ItemSelectedEventArgs e) =>
+            {
+                topicSelected = topics[e.Position];
+            };
         }
     }
 }
