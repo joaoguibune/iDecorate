@@ -12,6 +12,7 @@ using Android.Graphics;
 using iDecorate.Android.Domain.Client;
 using iDecorate.Android.Domain.Model;
 using iDecorate.Android.Domain.Contract;
+using System;
 
 namespace iDecorate.Android.Activities
 {
@@ -63,7 +64,7 @@ namespace iDecorate.Android.Activities
                 else
                 {
 
-                    if (topicSelected == null)
+                    if (topicSelected.id.Equals(Guid.Empty))
                         isSuccess = await _clientTopic.Post(new TopicModel { description = editTextTopic.Text });
                     else
                     {
@@ -75,7 +76,7 @@ namespace iDecorate.Android.Activities
                         StartActivity(new Intent(this, typeof(MainActivity)));
                 }
             };
-            
+
             listViewTopicData.ItemClick += (s, e) =>
             {
                 for (int i = 0; i < listViewTopicData.ChildCount; i++)
