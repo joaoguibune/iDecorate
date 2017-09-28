@@ -35,7 +35,7 @@ namespace iDecorate.Android.Business.Client
 
         public async Task<T> Get(string id)
         {
-            var response = await client.GetStringAsync(string.Concat(_urlRequest, id));
+            var response = await client.GetStringAsync(string.Concat(_urlRequest, "/", id));
             var result = JsonConvert.DeserializeObject<T>(response);
             return result;
         }
@@ -64,7 +64,7 @@ namespace iDecorate.Android.Business.Client
         }
         public async Task<bool> Delete(string id)
         {
-            var response = await client.DeleteAsync(string.Concat(_urlRequest, id));
+            var response = await client.DeleteAsync(string.Concat(_urlRequest, "/", id));
             return response.IsSuccessStatusCode;
         }
     }

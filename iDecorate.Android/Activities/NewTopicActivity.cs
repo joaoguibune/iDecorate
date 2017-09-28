@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using iDecorate.Android.Adapters.Main;
 using Android.Text;
 using iDecorate.Android.Util;
+using Android.Graphics;
 
 namespace iDecorate.Android.Activities
 {
@@ -24,19 +25,24 @@ namespace iDecorate.Android.Activities
     {
         private IClient<TopicModel> _clientTopic = new Client<TopicModel>("Topic");
         private List<TopicModel> topics;
+        private TopicModel topicSelected = new TopicModel();
 
-        private ListView ListViewTopicData;
+        private ListView listViewTopicData;
         private ListViewTopicAdapter adapterListViewTopic;
         private EditText editTextTopic;
         private Button buttonAdd;
+        private Button buttonEditTopic;
+        private LinearLayout linearbuttonAddTopic;
+        private LinearLayout linearbuttonEditTopic;
         private ProgressCustom progress;
+        private Button buttonDeleteTopic;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             base.SetContentView(Resource.Layout.NewTopic);
-            
+
             progress = new ProgressCustom(this);
 
             progress.Show();
@@ -44,7 +50,7 @@ namespace iDecorate.Android.Activities
             topics = Intent.GetStringExtra("Topic") == null ? new List<TopicModel>() : JsonConvert.DeserializeObject<List<TopicModel>>(Intent.GetStringExtra("Topic"));
 
             RegiterEvents();
-            
+
             progress.Dismiss();
 
         }
@@ -53,19 +59,73 @@ namespace iDecorate.Android.Activities
         {
             editTextTopic = FindViewById<EditText>(Resource.Id.editTextTopic);
             buttonAdd = FindViewById<Button>(Resource.Id.buttonAddTopic);
-            ListViewTopicData = FindViewById<ListView>(Resource.Id.ListViewTopicData);
+            listViewTopicData = FindViewById<ListView>(Resource.Id.ListViewTopicData);
+            buttonDeleteTopic = FindViewById<Button>(Resource.Id.buttonDeleteTopic);
             adapterListViewTopic = new ListViewTopicAdapter(this, topics);
 
-            ListViewTopicData.Adapter = adapterListViewTopic;
+            listViewTopicData.Adapter = adapterListViewTopic;
 
             buttonAdd.Click += async delegate
             {
+                var isSuccess = false;
+
                 if (editTextTopic.Text.Length.Equals(0))
                     editTextTopic.SetError("Topic is required.", null);
                 else
                 {
-                    if (await _clientTopic.Post(new TopicModel { description = editTextTopic.Text }))
-                        StartActivity(new Intent(this, typeof(NewTopicActivity)));
+
+                    if (topicSelected == null)
+                        isSuccess = await _clientTopic.Post(new TopicModel { description = editTextTopic.Text });
+                    else
+                    {
+                        topicSelected.description = editTextTopic.Text;
+                        isSuccess = await _clientTopic.Put(topicSelected);
+                    }
+
+                    if (isSuccess)
+                        StartActivity(new Intent(this, typeof(MainActivity)));
+                }
+            };
+            
+            listViewTopicData.ItemClick += (s, e) =>
+            {
+                for (int i = 0; i < listViewTopicData.ChildCount; i++)
+                {
+                    buttonDeleteTopic = listViewTopicData.GetChildAt(i).FindViewById<Button>(Resource.Id.buttonDeleteTopic);
+
+                    buttonDeleteTopic.Click += async (s2, e2) =>
+                    {
+                        var isSuccess = await _clientTopic.Delete(topicSelected.id.ToString());
+
+                        if (isSuccess)
+                            StartActivity(new Intent(this, typeof(MainActivity)));
+                    };
+
+                    if (e.Position == i)
+                    {
+                        if (topicSelected.id.Equals(topics[i].id))
+                        {
+                            listViewTopicData.GetChildAt(i).SetBackgroundColor(Color.Transparent);
+                            buttonDeleteTopic.Visibility = ViewStates.Invisible;
+                            editTextTopic.Text = string.Empty;
+                            buttonAdd.Text = "Add";
+                            topicSelected = new TopicModel();
+
+                        }
+                        else
+                        {
+                            listViewTopicData.GetChildAt(i).SetBackgroundColor(Color.Chocolate);
+                            buttonDeleteTopic.Visibility = ViewStates.Visible;
+                            topicSelected = topics[i];
+                            editTextTopic.Text = topicSelected.description;
+                            buttonAdd.Text = "Edit";
+                        }
+                    }
+                    else
+                    {
+                        listViewTopicData.GetChildAt(i).SetBackgroundColor(Color.Transparent);
+                        buttonDeleteTopic.Visibility = ViewStates.Invisible;
+                    }
                 }
             };
         }
