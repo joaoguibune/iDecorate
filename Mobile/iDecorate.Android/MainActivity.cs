@@ -16,7 +16,7 @@ namespace iDecorate.Android
     [Activity(Label = "iDecorate", MainLauncher = true, Icon = "@drawable/Icon")]
     public class MainActivity : Activity
     {
-        private IClient<TopicModel> _clientTopic = new Client<TopicModel>("Topic");
+        private IClient<TopicModel> _clientTopic = new Client<TopicModel>("TopicMobile");
         private List<TopicModel> topics = new List<TopicModel>();
 
         private Button buttonNewTopic;
@@ -32,7 +32,9 @@ namespace iDecorate.Android
 
             progress = new ProgressCustom(this, true);
 
-            topics = (List<TopicModel>)await _clientTopic.GetList();
+            topics = Intent.GetStringExtra("Topic") == null ?
+                (List<TopicModel>)await _clientTopic.GetList() :
+                JsonConvert.DeserializeObject<List<TopicModel>>(Intent.GetStringExtra("Topic"));
 
             RegisterEvents();
 
@@ -61,7 +63,7 @@ namespace iDecorate.Android
 
             buttonPratice.Click += (s, e) =>
             {
-                
+
             };
         }
     }

@@ -19,7 +19,7 @@ namespace iDecorate.Android.Activities
     [Activity(Label = "Topic")]
     public class NewTopicActivity : Activity
     {
-        private IClient<TopicModel> _clientTopic = new Client<TopicModel>("Topic");
+        private IClient<TopicModel> _clientTopic = new Client<TopicModel>("TopicMobile");
         private List<TopicModel> topics;
         private TopicModel topicSelected = new TopicModel();
 
@@ -57,22 +57,21 @@ namespace iDecorate.Android.Activities
 
             buttonAdd.Click += async (s, e) =>
             {
-                var isSuccess = false;
-
                 if (editTextTopic.Text.Length.Equals(0))
                     editTextTopic.SetError("Topic is required.", null);
                 else
                 {
                     if (topicSelected.id.Equals(Guid.Empty))
-                        isSuccess = await _clientTopic.Post(new TopicModel { description = editTextTopic.Text });
+                        topics = (List<TopicModel>)await _clientTopic.Post(new TopicModel { description = editTextTopic.Text });
                     else
                     {
                         topicSelected.description = editTextTopic.Text;
-                        isSuccess = await _clientTopic.Put(topicSelected);
+                        topics = (List<TopicModel>)await _clientTopic.Put(topicSelected);
                     }
 
-                    if (isSuccess)
-                        StartActivity(new Intent(this, typeof(MainActivity)));
+                    var newTopicActivity = new Intent(this, typeof(NewTopicActivity));
+                    newTopicActivity.PutExtra("Topic", JsonConvert.SerializeObject(topics));
+                    StartActivity(newTopicActivity);
                 }
             };
 
@@ -84,10 +83,11 @@ namespace iDecorate.Android.Activities
 
                     buttonDeleteTopic.Click += async (s2, e2) =>
                     {
-                        var isSuccess = await _clientTopic.Delete(topicSelected.id.ToString());
+                        topics = (List<TopicModel>)await _clientTopic.Delete(topicSelected.id.ToString());
 
-                        if (isSuccess)
-                            StartActivity(new Intent(this, typeof(MainActivity)));
+                        var newTopicActivity = new Intent(this, typeof(NewTopicActivity));
+                        newTopicActivity.PutExtra("Topic", JsonConvert.SerializeObject(topics));
+                        StartActivity(newTopicActivity);
                     };
 
                     if (e.Position == i)

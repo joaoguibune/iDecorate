@@ -20,7 +20,7 @@ namespace iDecorate.Android.Adapters.Main
         {
             get
             {
-                return topics.Count;
+                return topics == null ? 0 : topics.Count;
             }
         }
         public override long GetItemId(int position)
