@@ -58,9 +58,9 @@ namespace iDecorate.Domain.Client.Business
         {
             try
             {
-                var reminder = _repositoryTopic.Find(key);
+                var topic = _repositoryTopic.Find(key);
 
-                _repositoryTopic.Delete(reminder);
+                _repositoryTopic.Delete(topic);
 
                 return true;
             }

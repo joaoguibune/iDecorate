@@ -6,8 +6,8 @@ namespace iDecorate.Domain.Client.Contract
 {
     public interface IBusinessTopic
     {
-        bool Insert(TopicModel reminderViewModel);
-        bool Update(TopicModel reminderViewModel);
+        bool Insert(TopicModel topicModel);
+        bool Update(TopicModel topicModel);
         bool Delete(Guid key);
         List<TopicModel> GetAll();
         TopicModel Find(Guid key);

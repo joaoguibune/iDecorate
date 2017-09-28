@@ -55,7 +55,7 @@ namespace iDecorate.Android.Activities
 
             listViewTopicData.Adapter = adapterListViewTopic;
 
-            buttonAdd.Click += async delegate
+            buttonAdd.Click += async (s, e) =>
             {
                 var isSuccess = false;
 
@@ -63,7 +63,6 @@ namespace iDecorate.Android.Activities
                     editTextTopic.SetError("Topic is required.", null);
                 else
                 {
-
                     if (topicSelected.id.Equals(Guid.Empty))
                         isSuccess = await _clientTopic.Post(new TopicModel { description = editTextTopic.Text });
                     else

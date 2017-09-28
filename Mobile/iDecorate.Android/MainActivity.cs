@@ -45,21 +45,21 @@ namespace iDecorate.Android
             buttonNewWord = FindViewById<Button>(Resource.Id.VIEW001_ButtonNewWord);
             buttonPratice = FindViewById<Button>(Resource.Id.VIEW001_ButtonPratice);
 
-            buttonNewTopic.Click += delegate
+            buttonNewTopic.Click += (s, e) =>
             {
                 var newTopicActivity = new Intent(this, typeof(NewTopicActivity));
                 newTopicActivity.PutExtra("Topic", JsonConvert.SerializeObject(topics));
                 StartActivity(newTopicActivity);
             };
 
-            buttonNewWord.Click += delegate
+            buttonNewWord.Click += (s, e) =>
             {
                 var newWordActivity = new Intent(this, typeof(NewWordActivity));
                 newWordActivity.PutExtra("Topic", JsonConvert.SerializeObject(topics));
                 StartActivity(newWordActivity);
             };
 
-            buttonPratice.Click += delegate
+            buttonPratice.Click += (s, e) =>
             {
                 
             };

@@ -7,22 +7,25 @@
     <Button
         android:id="@+id/VIEW001_ButtonNewTopic"
         android:text="Topic"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:shadowDx="10"
         android:shadowDy="10"
-        android:shadowRadius="10" />
+        android:shadowRadius="10"
+        android:layout_width="match_parent"
+        android:layout_margin="20dp" />
     <Button
         android:id="@+id/VIEW001_ButtonNewWord"
         android:text="Word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:layout_margin="20dp" />
     <Button
         android:id="@+id/VIEW001_ButtonPratice"
         android:text="Pratice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:layout_margin="20dp" />
 </LinearLayout>

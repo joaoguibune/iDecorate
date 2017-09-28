@@ -72,7 +72,7 @@ namespace iDecorate.Android.Activities
 
             spinnerAdapter = new CustomSpinnerAdapter(this, topics);
             spinner.Adapter = spinnerAdapter;
-            spinner.ItemSelected += (sender, e) =>
+            spinner.ItemSelected += (s, e) =>
             {
                 topicSelected = topics[e.Position];
             };

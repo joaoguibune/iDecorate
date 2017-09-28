@@ -6,8 +6,8 @@ namespace iDecorate.Domain.Client.Contract
 {
     public interface IBusinessWord
     {
-        bool Insert(WordModel reminderViewModel);
-        bool Update(WordModel reminderViewModel);
+        bool Insert(WordModel wordModel);
+        bool Update(WordModel wordModel);
         bool Delete(Guid key);
         List<WordModel> GetAll();
         WordModel Find(Guid key);

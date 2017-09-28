@@ -23,16 +23,16 @@ namespace iDecorate.Controllers
 
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<WordModel> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _businessWord.GetAll();
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public WordModel Get(string id)
         {
-            return "value";
+            return _businessWord.Find(Guid.Parse(id));
         }
 
         // POST api/values

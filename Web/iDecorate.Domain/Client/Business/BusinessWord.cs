@@ -66,9 +66,9 @@ namespace iDecorate.Domain.Client.Business
         {
             try
             {
-                var reminder = _repository.Find(key);
+                var word = _repository.Find(key);
 
-                _repository.Delete(reminder);
+                _repository.Delete(word);
 
                 return true;
             }

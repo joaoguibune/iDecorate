@@ -9,14 +9,14 @@ using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace iDecorate.Controllers
+namespace iDecorate.Controllers.Mobile
 {
     [Route("api/[controller]")]
-    public class TopicController : Controller
+    public class TopicMobileController : Controller
     {
         private IBusinessTopic _businessTopic;
 
-        public TopicController(IBusinessTopic businessTopic)
+        public TopicMobileController(IBusinessTopic businessTopic)
         {
             _businessTopic = businessTopic;
         }
@@ -39,23 +39,29 @@ namespace iDecorate.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]TopicModel value)
+        public IEnumerable<TopicModel> Post([FromBody]TopicModel value)
         {
             _businessTopic.Insert(value);
+
+            return _businessTopic.GetAll();
         }
 
         // PUT api/values/5
         [HttpPut]
-        public void Put([FromBody]TopicModel value)
+        public IEnumerable<TopicModel> Put([FromBody]TopicModel value)
         {
             _businessTopic.Update(value);
+
+            return _businessTopic.GetAll();
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(Guid id)
+        public IEnumerable<TopicModel> Delete(Guid id)
         {
             _businessTopic.Delete(id);
+
+            return _businessTopic.GetAll();
         }
     }
 }
