@@ -37,9 +37,7 @@ namespace iDecorate.Android.Activities
 
             base.SetContentView(Resource.Layout.NewWord);
 
-            progress = new ProgressCustom(this);
-
-            progress.Show();
+            progress = new ProgressCustom(this, true);
 
             topics = Intent.GetStringExtra("Topic") == null ? new List<TopicModel>() : JsonConvert.DeserializeObject<List<TopicModel>>(Intent.GetStringExtra("Topic"));
 
@@ -63,12 +61,11 @@ namespace iDecorate.Android.Activities
 
         private void RegisterEvents()
         {
-
-            editTextWord = FindViewById<EditText>(Resource.Id.editTextWord);
-            editTextMeaning = FindViewById<EditText>(Resource.Id.editTextMeaning);
-            buttonAddWord = FindViewById<Button>(Resource.Id.buttonAddWord);
-            listViewWordData = FindViewById<ListView>(Resource.Id.ListViewWordData);
-            spinner = FindViewById<Spinner>(Resource.Id.spinnerTopics);
+            editTextWord = FindViewById<EditText>(Resource.Id.VIEW003_EditTextWord);
+            editTextMeaning = FindViewById<EditText>(Resource.Id.VIEW003_EditTextMeaning);
+            buttonAddWord = FindViewById<Button>(Resource.Id.VIEW003_ButtonAddWord);
+            listViewWordData = FindViewById<ListView>(Resource.Id.VIEW003_ListViewWordData);
+            spinner = FindViewById<Spinner>(Resource.Id.VIEW003_SpinnerTopics);
 
             adapterListViewWord = new ListViewWordAdapter(this, words);
             listViewWordData.Adapter = adapterListViewWord;

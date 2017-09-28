@@ -7,13 +7,13 @@
           android:hint="Type the Topic"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:id="@+id/editTextTopic" />
+          android:id="@+id/VIEW002_EditTextTopic" />
   <LinearLayout
       android:orientation="horizontal"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
     <Button
-        android:id="@+id/buttonAddTopic"
+        android:id="@+id/VIEW002_ButtonAddTopic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add"
@@ -25,5 +25,5 @@
     android:background="#8b7355"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/ListViewTopicData" />
+    android:id="@+id/VIEW002_ListViewTopicData" />
 </LinearLayout>

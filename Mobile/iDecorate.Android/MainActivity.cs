@@ -16,44 +16,34 @@ namespace iDecorate.Android
     [Activity(Label = "iDecorate", MainLauncher = true, Icon = "@drawable/Icon")]
     public class MainActivity : Activity
     {
-        private ListView ListViewData;
+        private IClient<TopicModel> _clientTopic = new Client<TopicModel>("Topic");
+        private List<TopicModel> topics = new List<TopicModel>();
+
         private Button buttonNewTopic;
         private Button buttonNewWord;
-        private ListViewAdapter adapterListView;
-        private List<TopicWordModel> topicWords = new List<TopicWordModel>();
-        private List<TopicModel> topics = new List<TopicModel>();
+        private Button buttonPratice;
         private ProgressCustom progress;
-        private IClient<TopicModel> _clientTopic = new Client<TopicModel>("Topic");
 
         protected override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            progress = new ProgressCustom(this);
-
-            progress.Show();
+            progress = new ProgressCustom(this, true);
 
             topics = (List<TopicModel>)await _clientTopic.GetList();
 
-            
+            RegisterEvents();
 
             progress.Dismiss();
-
-            RegisterEvents();
         }
 
         private void RegisterEvents()
         {
-            ListViewData = FindViewById<ListView>(Resource.Id.ListViewData);
-            buttonNewTopic = FindViewById<Button>(Resource.Id.buttonNewTopic);
-            buttonNewWord = FindViewById<Button>(Resource.Id.buttonNewWord);
-
-            //adapterListView = new ListViewAdapter(this, topicWords);
-
-            //ListViewData.Adapter = adapterListView;
+            buttonNewTopic = FindViewById<Button>(Resource.Id.VIEW001_ButtonNewTopic);
+            buttonNewWord = FindViewById<Button>(Resource.Id.VIEW001_ButtonNewWord);
+            buttonPratice = FindViewById<Button>(Resource.Id.VIEW001_ButtonPratice);
 
             buttonNewTopic.Click += delegate
             {
@@ -69,50 +59,9 @@ namespace iDecorate.Android
                 StartActivity(newWordActivity);
             };
 
-            ////botão editar
-            //btnEditar.Click += delegate
-            //{
-            //    //Aluno aluno = new Aluno()
-            //    //{
-            //    //    Id = int.Parse(txtNome.Tag.ToString()),
-            //    //    Nome = txtNome.Text,
-            //    //    Idade = int.Parse(txtIdade.Text),
-            //    //    Email = txtEmail.Text
-            //    //};
-            //    //db.AtualizarAluno(aluno);
-            //    //CarregarDados();
-            //};
-            ////botão deletar
-            //btnDeletar.Click += delegate
-            //{
-            //    //Aluno aluno = new Aluno()
-            //    //{
-            //    //    Id = int.Parse(txtNome.Tag.ToString()),
-            //    //    Nome = txtNome.Text,
-            //    //    Idade = int.Parse(txtIdade.Text),
-            //    //    Email = txtEmail.Text
-            //    //};
-            //    //db.DeletarAluno(aluno);
-            //    //CarregarDados();
-            //};
-            //evento itemClick do ListView
-            ListViewData.ItemClick += (s, e) =>
+            buttonPratice.Click += delegate
             {
-                //for (int i = 0; i < lvDados.ChildCount; i++)
-                //{
-                //    if (e.Position == i)
-                //        lvDados.GetChildAt(i).SetBackgroundColor(Color.Chocolate);
-                //    else
-                //        lvDados.GetChildAt(i).SetBackgroundColor(Color.Transparent);
-                //}
-                //vinculando dados do listview 
-                //var lvtxtNome = e.View.FindViewById<TextView>(Resource.Id.txtvNome);
-                //var lvtxtIdade = e.View.FindViewById<TextView>(Resource.Id.txtvIdade);
-                //var lvtxtEmail = e.View.FindViewById<TextView>(Resource.Id.txtvEmail);
-                //txtNome.Text = lvtxtNome.Text;
-                //txtNome.Tag = e.Id;
-                //txtIdade.Text = lvtxtIdade.Text;
-                //txtEmail.Text = lvtxtEmail.Text;
+                
             };
         }
     }

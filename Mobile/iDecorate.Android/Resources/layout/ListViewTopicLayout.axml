@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-        android:id="@+id/lvtlDescription"
+        android:id="@+id/VIEW002_TopicDescription"
         android:text="Topic"
         android:layout_width="280.0dp"
         android:layout_height="match_parent"
@@ -13,7 +13,7 @@
         android:textStyle="bold"
         android:padding="15dp"/>
     <Button
-        android:id="@+id/buttonDeleteTopic"
+        android:id="@+id/VIEW002_ButtonDeleteTopic"
         android:text="Delete"
         android:visibility="invisible"
         android:layout_height="match_parent"

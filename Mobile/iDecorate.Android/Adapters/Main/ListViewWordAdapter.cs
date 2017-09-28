@@ -30,9 +30,9 @@ namespace iDecorate.Android.Adapters.Main
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             var view = convertView ?? context.LayoutInflater.Inflate(Resource.Layout.ListViewWordLayout, parent, false);
-            var lvwlTopicDescription = view.FindViewById<TextView>(Resource.Id.lvwlTopicDescription);
-            var lvwlWordDescription = view.FindViewById<TextView>(Resource.Id.lvwlWordDescription);
-            var lvwlWordMeaning = view.FindViewById<TextView>(Resource.Id.lvwlWordMeaning);
+            var lvwlTopicDescription = view.FindViewById<TextView>(Resource.Id.VIEW003_TopicDescription);
+            var lvwlWordDescription = view.FindViewById<TextView>(Resource.Id.VIEW003_WordDescription);
+            var lvwlWordMeaning = view.FindViewById<TextView>(Resource.Id.VIEW003_WordMeaning);
 
             lvwlTopicDescription.Text = words[position].topic_description;
             lvwlWordDescription.Text = words[position].word_description;

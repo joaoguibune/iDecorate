@@ -67,7 +67,6 @@
     <Compile Include="Adapters\Main\CustomSpinnerAdapter.cs" />
     <Compile Include="Adapters\Main\ListViewWordAdapter.cs" />
     <Compile Include="Adapters\Main\ListViewTopicAdapter.cs" />
-    <Compile Include="Adapters\Main\ListViewAdapter.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,9 +81,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\layout\ListViewLayout.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\NewTopic.axml">
       <SubType>Designer</SubType>
     </AndroidResource>

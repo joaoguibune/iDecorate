@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="8dp">
     <TextView
-        android:id="@+id/lvwlWordDescription"
+        android:id="@+id/VIEW003_WordDescription"
         android:text="Word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         android:textStyle="bold"
         android:paddingLeft="5dp" />
     <TextView
-        android:id="@+id/lvwlWordMeaning"
+        android:id="@+id/VIEW003_WordMeaning"
         android:text="Meaning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:paddingLeft="5dp"
         android:textSize="15dp" />
     <TextView
-        android:id="@+id/lvwlTopicDescription"
+        android:id="@+id/VIEW003_TopicDescription"
         android:text="Topic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

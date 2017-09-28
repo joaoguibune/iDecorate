@@ -26,9 +26,6 @@ namespace iDecorate.Android.Activities
         private ListViewTopicAdapter adapterListViewTopic;
         private EditText editTextTopic;
         private Button buttonAdd;
-        private Button buttonEditTopic;
-        private LinearLayout linearbuttonAddTopic;
-        private LinearLayout linearbuttonEditTopic;
         private ProgressCustom progress;
         private Button buttonDeleteTopic;
 
@@ -38,24 +35,21 @@ namespace iDecorate.Android.Activities
 
             base.SetContentView(Resource.Layout.NewTopic);
 
-            progress = new ProgressCustom(this);
-
-            progress.Show();
+            progress = new ProgressCustom(this, true);
 
             topics = Intent.GetStringExtra("Topic") == null ? new List<TopicModel>() : JsonConvert.DeserializeObject<List<TopicModel>>(Intent.GetStringExtra("Topic"));
 
             RegiterEvents();
 
             progress.Dismiss();
-
         }
 
         private void RegiterEvents()
         {
-            editTextTopic = FindViewById<EditText>(Resource.Id.editTextTopic);
-            buttonAdd = FindViewById<Button>(Resource.Id.buttonAddTopic);
-            listViewTopicData = FindViewById<ListView>(Resource.Id.ListViewTopicData);
-            buttonDeleteTopic = FindViewById<Button>(Resource.Id.buttonDeleteTopic);
+            editTextTopic = FindViewById<EditText>(Resource.Id.VIEW002_EditTextTopic);
+            buttonAdd = FindViewById<Button>(Resource.Id.VIEW002_ButtonAddTopic);
+            listViewTopicData = FindViewById<ListView>(Resource.Id.VIEW002_ListViewTopicData);
+            buttonDeleteTopic = FindViewById<Button>(Resource.Id.VIEW002_ButtonDeleteTopic);
             adapterListViewTopic = new ListViewTopicAdapter(this, topics);
 
             listViewTopicData.Adapter = adapterListViewTopic;
@@ -86,7 +80,7 @@ namespace iDecorate.Android.Activities
             {
                 for (int i = 0; i < listViewTopicData.ChildCount; i++)
                 {
-                    buttonDeleteTopic = listViewTopicData.GetChildAt(i).FindViewById<Button>(Resource.Id.buttonDeleteTopic);
+                    buttonDeleteTopic = listViewTopicData.GetChildAt(i).FindViewById<Button>(Resource.Id.VIEW002_ButtonDeleteTopic);
 
                     buttonDeleteTopic.Click += async (s2, e2) =>
                     {

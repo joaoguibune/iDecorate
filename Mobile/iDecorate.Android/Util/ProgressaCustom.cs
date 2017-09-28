@@ -16,13 +16,16 @@ namespace iDecorate.Android.Util
     {
         private ProgressDialog progress;
 
-        public ProgressCustom(Activity element, string message = "Loading the content, please wait...")
+        public ProgressCustom(Activity element, bool showOnload = false, string message = "Loading the content, please wait...")
         {
             progress = new ProgressDialog(element);
             progress.Indeterminate = true;
             progress.SetProgressStyle(ProgressDialogStyle.Spinner);
             progress.SetMessage(message);
             progress.SetCancelable(false);
+
+            if (showOnload)
+                progress.Show();
         }
 
         public void Show()
