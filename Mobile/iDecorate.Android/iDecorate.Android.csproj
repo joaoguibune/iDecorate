@@ -111,7 +111,7 @@
     <AndroidResource Include="Resources\drawable\Icon.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\iDecorate.Android.Domain\iDecorate.Android.Domain.csproj">
+    <ProjectReference Include="..\iDecorate.Android.Domain\iDecorate.Android.Domain.csproj">
       <Project>{746924DD-184A-4138-B758-C06869EB048A}</Project>
       <Name>iDecorate.Android.Domain</Name>
     </ProjectReference>

@@ -8,8 +8,8 @@ using Newtonsoft.Json;
 using iDecorate.Android.Adapters.Main;
 using iDecorate.Android.Util;
 using iDecorate.Android.Domain.Model;
-using iDecorate.Android.Domain.Contract;
 using iDecorate.Android.Domain.Client;
+using iDecorate.Android.Domain.Contract;
 
 namespace iDecorate.Android.Activities
 {

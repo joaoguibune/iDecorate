@@ -15,9 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{6BE741
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{CBBDDC4A-9BA8-49D6-A87C-A7D1C8AE6CFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecorate.Android.Data", "iDecorate.Android.Data\iDecorate.Android.Data.csproj", "{F8FE1AF4-6B97-4E19-85CC-D5265FA402D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecorate.Android.Data", "Mobile\iDecorate.Android.Data\iDecorate.Android.Data.csproj", "{F8FE1AF4-6B97-4E19-85CC-D5265FA402D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecorate.Android.Domain", "iDecorate.Android.Domain\iDecorate.Android.Domain.csproj", "{746924DD-184A-4138-B758-C06869EB048A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecorate.Android.Domain", "Mobile\iDecorate.Android.Domain\iDecorate.Android.Domain.csproj", "{746924DD-184A-4138-B758-C06869EB048A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
