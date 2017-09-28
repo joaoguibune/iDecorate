@@ -12,7 +12,7 @@ using Android.Widget;
 using System.Threading.Tasks;
 
 
-namespace iDecorate.Android.Business.Contract
+namespace iDecorate.Android.Domain.Contract
 {
     public interface IClient<T>
     {

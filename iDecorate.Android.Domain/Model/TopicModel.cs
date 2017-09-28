@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace iDecorate.Android.Model
+namespace iDecorate.Android.Domain.Model
 {
     public class TopicModel
     {

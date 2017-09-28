@@ -3,13 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iDecorate", "iDecorate\iDecorate.csproj", "{C0971D60-544D-4820-B128-1100A3595FFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iDecorate", "Web\iDecorate\iDecorate.csproj", "{C0971D60-544D-4820-B128-1100A3595FFE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iDecorate.Domain", "iDecorate.Domain\iDecorate.Domain.csproj", "{6218F742-9715-460C-B6A4-E9CDC273C7C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iDecorate.Domain", "Web\iDecorate.Domain\iDecorate.Domain.csproj", "{6218F742-9715-460C-B6A4-E9CDC273C7C6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iDecorate.Data", "iDecorate.Data\iDecorate.Data.csproj", "{C0089C60-CDBF-4960-B14D-C4A444EFD7D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iDecorate.Data", "Web\iDecorate.Data\iDecorate.Data.csproj", "{C0089C60-CDBF-4960-B14D-C4A444EFD7D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecorate.Android", "iDecorate.Android\iDecorate.Android.csproj", "{4052DED8-FFBC-4DDD-A213-A25671FD9B3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecorate.Android", "Mobile\iDecorate.Android\iDecorate.Android.csproj", "{4052DED8-FFBC-4DDD-A213-A25671FD9B3C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{6BE74135-D243-49C7-99F6-5D6EC549D533}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{CBBDDC4A-9BA8-49D6-A87C-A7D1C8AE6CFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecorate.Android.Data", "iDecorate.Android.Data\iDecorate.Android.Data.csproj", "{F8FE1AF4-6B97-4E19-85CC-D5265FA402D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecorate.Android.Domain", "iDecorate.Android.Domain\iDecorate.Android.Domain.csproj", "{746924DD-184A-4138-B758-C06869EB048A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,9 +43,25 @@ Global
 		{4052DED8-FFBC-4DDD-A213-A25671FD9B3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4052DED8-FFBC-4DDD-A213-A25671FD9B3C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4052DED8-FFBC-4DDD-A213-A25671FD9B3C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F8FE1AF4-6B97-4E19-85CC-D5265FA402D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8FE1AF4-6B97-4E19-85CC-D5265FA402D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8FE1AF4-6B97-4E19-85CC-D5265FA402D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8FE1AF4-6B97-4E19-85CC-D5265FA402D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{746924DD-184A-4138-B758-C06869EB048A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{746924DD-184A-4138-B758-C06869EB048A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{746924DD-184A-4138-B758-C06869EB048A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{746924DD-184A-4138-B758-C06869EB048A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C0971D60-544D-4820-B128-1100A3595FFE} = {CBBDDC4A-9BA8-49D6-A87C-A7D1C8AE6CFC}
+		{6218F742-9715-460C-B6A4-E9CDC273C7C6} = {CBBDDC4A-9BA8-49D6-A87C-A7D1C8AE6CFC}
+		{C0089C60-CDBF-4960-B14D-C4A444EFD7D8} = {CBBDDC4A-9BA8-49D6-A87C-A7D1C8AE6CFC}
+		{4052DED8-FFBC-4DDD-A213-A25671FD9B3C} = {6BE74135-D243-49C7-99F6-5D6EC549D533}
+		{F8FE1AF4-6B97-4E19-85CC-D5265FA402D1} = {6BE74135-D243-49C7-99F6-5D6EC549D533}
+		{746924DD-184A-4138-B758-C06869EB048A} = {6BE74135-D243-49C7-99F6-5D6EC549D533}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8FFCC087-84C1-4781-899A-8E19F807C79F}

@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using iDecorate.Android.Business.Contract;
-using iDecorate.Android.Model;
-using iDecorate.Android.Business.Client;
 using Newtonsoft.Json;
 using iDecorate.Android.Adapters.Main;
-using Android.Text;
 using iDecorate.Android.Util;
 using Android.Graphics;
+using iDecorate.Android.Domain.Client;
+using iDecorate.Android.Domain.Model;
+using iDecorate.Android.Domain.Contract;
 
 namespace iDecorate.Android.Activities
 {

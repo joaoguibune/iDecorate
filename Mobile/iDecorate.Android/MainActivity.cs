@@ -1,23 +1,15 @@
 ﻿using Android.App;
 using Android.Widget;
 using Android.OS;
-using System.Json;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using iDecorate.Android.Model;
-using System.Threading.Tasks;
-using System.Net;
-using System;
-using System.IO;
-using Android.Views;
-using System.Timers;
-using Android.Graphics;
-using iDecorate.Android.Business.Contract;
 using iDecorate.Android.Adapters.Main;
-using iDecorate.Android.Business.Client;
 using iDecorate.Android.Activities;
 using Android.Content;
 using iDecorate.Android.Util;
+using iDecorate.Android.Domain.Model;
+using iDecorate.Android.Domain.Contract;
+using iDecorate.Android.Domain.Client;
 
 namespace iDecorate.Android
 {

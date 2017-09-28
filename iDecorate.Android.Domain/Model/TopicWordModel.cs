@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace iDecorate.Android.Model
+namespace iDecorate.Android.Domain.Model
 {
     public class TopicWordModel
     {

@@ -68,12 +68,7 @@
     <Compile Include="Adapters\Main\ListViewWordAdapter.cs" />
     <Compile Include="Adapters\Main\ListViewTopicAdapter.cs" />
     <Compile Include="Adapters\Main\ListViewAdapter.cs" />
-    <Compile Include="Business\Client\Client.cs" />
-    <Compile Include="Business\Contract\IClient.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="Model\TopicModel.cs" />
-    <Compile Include="Model\TopicWordModel.cs" />
-    <Compile Include="Model\WordModel.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\ProgressaCustom.cs" />
@@ -118,6 +113,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Icon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\iDecorate.Android.Domain\iDecorate.Android.Domain.csproj">
+      <Project>{746924DD-184A-4138-B758-C06869EB048A}</Project>
+      <Name>iDecorate.Android.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,25 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using iDecorate.Android.Business.Contract;
-using iDecorate.Android.Model;
-using System.Json;
-using System.IO;
-using System.Net;
-using System.Threading.Tasks;
+﻿using iDecorate.Android.Domain.Contract;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Net.Http;
-using System.Configuration;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace iDecorate.Android.Business.Client
+namespace iDecorate.Android.Domain.Client
 {
     public class Client<T> : IClient<T>
     {
