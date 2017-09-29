@@ -4,29 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp">
-    <TextView
-        android:id="@+id/VIEW003_WordDescription"
-        android:text="Word"
+  <TextView
+      android:id="@+id/VIEW003_WordDescription"
+      android:text="Word"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textColor="#000000"
+      android:textSize="20dp"
+      android:textStyle="bold"
+      android:paddingLeft="5dp" />
+  <TextView
+      android:id="@+id/VIEW003_WordMeaning"
+      android:text="Meaning"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textColor="#ffff00"
+      android:paddingLeft="5dp"
+      android:textSize="15dp" />
+  <TextView
+      android:id="@+id/VIEW003_TopicDescription"
+      android:text="Topic"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textColor="#ffff00"
+      android:paddingLeft="5dp"
+      android:textSize="10dp" />
+  <Button
+        android:id="@+id/VIEW003_ButtonDeleteWord"
+        android:text="Delete"
+        android:visibility="invisible"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:paddingLeft="5dp" />
-    <TextView
-        android:id="@+id/VIEW003_WordMeaning"
-        android:text="Meaning"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ffff00"
-        android:paddingLeft="5dp"
-        android:textSize="15dp" />
-    <TextView
-        android:id="@+id/VIEW003_TopicDescription"
-        android:text="Topic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ffff00"
-        android:paddingLeft="5dp"
-        android:textSize="10dp" />
+        android:layout_marginRight="0dp"
+        android:layout_marginLeft="0.0dp" />
 </LinearLayout>

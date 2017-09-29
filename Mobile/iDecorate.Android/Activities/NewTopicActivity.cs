@@ -19,7 +19,7 @@ namespace iDecorate.Android.Activities
     [Activity(Label = "Topic")]
     public class NewTopicActivity : Activity
     {
-        private IClient<TopicModel> _clientTopic = new Client<TopicModel>("TopicMobile");
+        private IClient<TopicModel> _clientTopic = new Client<TopicModel>("Topic");
         private List<TopicModel> topics;
         private TopicModel topicSelected = new TopicModel();
 
@@ -30,15 +30,15 @@ namespace iDecorate.Android.Activities
         private ProgressCustom progress;
         private Button buttonDeleteTopic;
 
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             base.SetContentView(Resource.Layout.NewTopic);
 
             progress = new ProgressCustom(this, true);
-
-            topics = Intent.GetStringExtra("Topic") == null ? new List<TopicModel>() : JsonConvert.DeserializeObject<List<TopicModel>>(Intent.GetStringExtra("Topic"));
+            
+            topics = (List<TopicModel>)await _clientTopic.GetList();
 
             RegiterEvents();
 
@@ -57,38 +57,35 @@ namespace iDecorate.Android.Activities
 
             buttonAdd.Click += async (s, e) =>
             {
-                if (editTextTopic.Text.Length.Equals(0))
+                var isSuccess = false;
+                if (editTextTopic.Text.Equals(string.Empty))
                     editTextTopic.SetError("Topic is required.", null);
                 else
                 {
                     if (topicSelected.id.Equals(Guid.Empty))
-                        topics = (List<TopicModel>)await _clientTopic.Post(new TopicModel { description = editTextTopic.Text });
+                        isSuccess = await _clientTopic.Post(new TopicModel { description = editTextTopic.Text });
                     else
                     {
                         topicSelected.description = editTextTopic.Text;
-                        topics = (List<TopicModel>)await _clientTopic.Put(topicSelected);
+                        isSuccess = await _clientTopic.Put(topicSelected);
                     }
 
-                    var newTopicActivity = new Intent(this, typeof(NewTopicActivity));
-                    newTopicActivity.PutExtra("Topic", JsonConvert.SerializeObject(topics));
-                    StartActivity(newTopicActivity);
+                    if (isSuccess)
+                    {
+                        Intent intent = this.Intent;
+                        Finish();
+                        StartActivity(intent);
+                    }
                 }
             };
 
             listViewTopicData.ItemClick += (s, e) =>
             {
+                var isSuccess = false;
+
                 for (int i = 0; i < listViewTopicData.ChildCount; i++)
                 {
                     buttonDeleteTopic = listViewTopicData.GetChildAt(i).FindViewById<Button>(Resource.Id.VIEW002_ButtonDeleteTopic);
-
-                    buttonDeleteTopic.Click += async (s2, e2) =>
-                    {
-                        topics = (List<TopicModel>)await _clientTopic.Delete(topicSelected.id.ToString());
-
-                        var newTopicActivity = new Intent(this, typeof(NewTopicActivity));
-                        newTopicActivity.PutExtra("Topic", JsonConvert.SerializeObject(topics));
-                        StartActivity(newTopicActivity);
-                    };
 
                     if (e.Position == i)
                     {
@@ -108,6 +105,18 @@ namespace iDecorate.Android.Activities
                             topicSelected = topics[i];
                             editTextTopic.Text = topicSelected.description;
                             buttonAdd.Text = "Edit";
+
+                            buttonDeleteTopic.Click += async (s2, e2) =>
+                            {
+                                isSuccess = await _clientTopic.Delete(topicSelected.id.ToString());
+
+                                if (isSuccess)
+                                {
+                                    Intent intent = this.Intent;
+                                    Finish();
+                                    StartActivity(intent);
+                                }
+                            };
                         }
                     }
                     else

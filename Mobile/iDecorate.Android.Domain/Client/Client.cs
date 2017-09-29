@@ -33,30 +33,25 @@ namespace iDecorate.Android.Domain.Client
             return result;
         }
 
-        public async Task<IEnumerable<T>> Post(T body)
+        public async Task<bool> Post(T body)
         {
             var data = JsonConvert.SerializeObject(body);
             var content = new StringContent(data, Encoding.UTF8, "application/json");
             var response = await client.PostAsync(_urlRequest, content);
-
-            var result = JsonConvert.DeserializeObject<IEnumerable<T>>(response.Content.ReadAsStringAsync().Result);
-
-            return result;
+            return response.IsSuccessStatusCode;
         }
 
-        public async Task<IEnumerable<T>> Put(T body)
+        public async Task<bool> Put(T body)
         {
             var data = JsonConvert.SerializeObject(body);
             var content = new StringContent(data, Encoding.UTF8, "application/json");
             var response = await client.PutAsync(_urlRequest, content);
-            var result = JsonConvert.DeserializeObject<IEnumerable<T>>(response.Content.ReadAsStringAsync().Result);
-            return result;
+            return response.IsSuccessStatusCode;
         }
-        public async Task<IEnumerable<T>> Delete(string id)
+        public async Task<bool> Delete(string id)
         {
             var response = await client.DeleteAsync(string.Concat(_urlRequest, "/", id));
-            var result = JsonConvert.DeserializeObject<IEnumerable<T>>(response.Content.ReadAsStringAsync().Result);
-            return result;
+            return response.IsSuccessStatusCode;
         }
     }
 }

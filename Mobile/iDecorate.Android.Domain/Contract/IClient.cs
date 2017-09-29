@@ -18,8 +18,8 @@ namespace iDecorate.Android.Domain.Contract
     {
         Task<T> Get(string id);
         Task<IEnumerable<T>> GetList();
-        Task<IEnumerable<T>> Post(T body);
-        Task<IEnumerable<T>> Put(T body);
-        Task<IEnumerable<T>> Delete(string id);
+        Task<bool> Post(T body);
+        Task<bool> Put(T body);
+        Task<bool> Delete(string id);
     }
 }
